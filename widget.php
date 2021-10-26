@@ -1,5 +1,8 @@
 <?php
-class Elementor_Test_Widget extends \Elementor\Widget_Base
+
+namespace Elementor;
+
+class Custom_Slider_Widget extends Widget_Base
 {
     public function __construct($data = [], $args = null)
     {
