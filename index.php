@@ -17,4 +17,4 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-include_once("core.php");
+include_once("register_widget.php");

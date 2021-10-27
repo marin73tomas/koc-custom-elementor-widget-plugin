@@ -43,7 +43,7 @@ class Custom_Slider_Widget extends Widget_Base
 
     protected function _register_controls()
     {
-
+        //content tab
         $this->start_controls_section(
             'content_section',
             [
@@ -51,14 +51,88 @@ class Custom_Slider_Widget extends Widget_Base
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
+        $repeater = new \Elementor\Repeater();
+
+
+        $repeater->add_control(
+            'list_color',
+            [
+                'label' => __('Slice Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} {{CURRENT_ITEM}}' => 'color: {{VALUE}}'
+                ],
+                'default' => "#F4F4F4"
+            ]
+        );
+
+        $repeater->add_control(
+            'list_media',
+            [
+                'name' => 'Choose Media File',
+                'label' => __('Animate Media', 'elementor'),
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+            ],
+        );
+
+        $repeater->add_group_control(
+            \Elementor\Group_Control_Image_Size::get_type(),
+            [
+                'name' => 'Media File Size',
+                'exclude' => ['custom'],
+                'include' => [],
+                'default' => 'large',
+            ]
+        );
+
+        $repeater->add_control(
+            'imgposition',
+            [
+                'label' => __('Media File Position', 'plugin-domain'),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => ['top', '%', 'em'],
+                'selectors' => [
+                    '{{WRAPPER}} .your-class' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
 
         $this->add_control(
-            'url',
+            'list',
             [
-                'label' => __('URL to embed', 'plugin-name'),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'input_type' => 'url',
-                'placeholder' => __('https://your-link.com', 'plugin-name'),
+                'label' => __('Repeater List', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $repeater->get_controls(),
+                'default' => [
+                    [
+                        'list_content' => __('Item content. Click the edit button to change this text.', 'plugin-domain'),
+                    ],
+                ],
+            ]
+        );
+        $repeater->add_control(
+            'content',
+            [
+                'label' => __('Content', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::WYSIWYG,
+                'default' => __('List Content', 'plugin-domain'),
+                'show_label' => false,
+            ]
+        );
+
+
+
+        $this->end_controls_section();
+
+        //styles tab
+        $this->start_controls_section(
+            'styles_section',
+            [
+                'label' => __('Styles', 'plugin-name'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
 
@@ -75,15 +149,5 @@ class Custom_Slider_Widget extends Widget_Base
      */
     protected function render()
     {
-
-        $settings = $this->get_settings_for_display();
-
-        $html = wp_oembed_get($settings['url']);
-
-        echo '<div class="oembed-elementor-widget">';
-
-        echo ($html) ? $html : $settings['url'];
-
-        echo '</div>';
     }
 }
