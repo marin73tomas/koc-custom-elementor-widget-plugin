@@ -2,13 +2,17 @@
 
 namespace Elementor;
 
+function gen_uid($length = 10)
+{
+    return substr(str_shuffle(str_repeat($x = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+}
 class Custom_Slider_Widget extends Widget_Base
 {
     public function __construct($data = [], $args = null)
     {
         parent::__construct($data, $args);
-        wp_register_script('script-handle', 'assets/scripts/main.js', ['elementor-frontend'], '2.0.0', true);
-        wp_register_style('style-handle', 'assets/scripts/main.css');
+        wp_register_script('script-handle', plugin_dir_url(__FILE__) . 'assets/scripts/main.js', ['elementor-frontend'], '25.0.0', true);
+        wp_register_style('style-handle', plugin_dir_url(__FILE__) . 'assets/styles/main.css');
     }
 
     public function get_script_depends()
@@ -209,24 +213,26 @@ class Custom_Slider_Widget extends Widget_Base
         $settings = $this->get_settings_for_display();
 ?>
 
-        <div class="custom-slider-container">
+        <div class="custom-slider-container" id="<?php echo gen_uid(); ?>">
             <svg class="meter">
-                <circle id="outline_curves" class="circle outline" cx="50%" cy="50%"></circle>
+                <circle class="outline_curves circle outline" cx="50%" cy="50%"></circle>
 
-                <circle id="low" class="circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
+                <circle class="low circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
 
-                <circle id="avg" class="circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
+                <circle class="avg circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
 
-                <circle id="high" class="circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
+                <circle class="high circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
 
-                <circle id="mask" class="circle" cx="50%" cy="50%">
+                <circle class="new circle range" cx="50%" cy="50%" stroke="blue"></circle>
+
+                <circle class="mask circle" cx="50%" cy="50%">
                 </circle>
 
-                <circle id="outline_ends" class="circle outline" cx="50%" cy="50%"></circle>
+                <circle class="outline_ends circle outline" cx="50%" cy="50%"></circle>
             </svg>
-            <img class="meter_needle" src="assets/img/gauge-needle.svg" alt="">
+            <img class="meter_needle" src="<?php echo plugin_dir_url(__FILE__) . '/assets/img/gauge-needle.svg'; ?>" alt="">
             <input class="slider" type="range" min="0" max="100" value="0" />
-            <label class="lbl" id="value" for="">0</label>
+            <label class="lbl value" for="">0</label>
         </div>
 
     <?php
@@ -235,24 +241,27 @@ class Custom_Slider_Widget extends Widget_Base
     protected function _content_template()
     {
     ?>
-        <div class="custom-slider-container">
+        <div class="custom-slider-container" id="<?php echo gen_uid(); ?>">
             <svg class="meter">
-                <circle id="outline_curves" class="circle outline" cx="50%" cy="50%"></circle>
+                <circle class="outline_curves circle outline" cx="50%" cy="50%"></circle>
 
-                <circle id="low" class="circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
+                <circle class="low circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
 
-                <circle id="avg" class="circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
+                <circle class="avg circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
 
-                <circle id="high" class="circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
+                <circle class="high circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
+                
+                <circle class="new circle range" cx="50%" cy="50%" stroke="blue"></circle>
 
-                <circle id="mask" class="circle" cx="50%" cy="50%">
+
+                <circle class="mask circle" cx="50%" cy="50%">
                 </circle>
 
-                <circle id="outline_ends" class="circle outline" cx="50%" cy="50%"></circle>
+                <circle class="outline_ends circle outline" cx="50%" cy="50%"></circle>
             </svg>
-            <img class="meter_needle" src="assets/img/gauge-needle.svg" alt="">
+            <img class="meter_needle" src="<?php echo plugin_dir_url(__FILE__) . '/assets/img/gauge-needle.svg'; ?>" alt="">
             <input class="slider" type="range" min="0" max="100" value="0" />
-            <label class="lbl" id="value" for="">0</label>
+            <label class="lbl value" for="">0</label>
         </div>
 <?php
     }
