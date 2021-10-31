@@ -51,6 +51,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
+
         $repeater = new \Elementor\Repeater();
 
 
@@ -93,10 +94,34 @@ class Custom_Slider_Widget extends Widget_Base
             [
                 'label' => __('Media File Position', 'plugin-domain'),
                 'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['top', '%', 'em'],
+                'size_units' => ['px', '%', 'em'],
                 'selectors' => [
-                    '{{WRAPPER}} .your-class' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img' => 'top: {{TOP}}{{UNIT}}; right: {{RIGHT}}{{UNIT}}; bottom: {{BOTTOM}}{{UNIT}}; left: {{LEFT}}{{UNIT}};',
                 ],
+            ]
+        );
+
+        $repeater->add_control(
+            'imganimation',
+            [
+                'label' => __('Media File Animation', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SELECT2,
+                'multiple' => false,
+                'options' => [
+                    'Fade In'  => __('Fade In', 'plugin-domain'),
+                    'Fade In'  => __('Fade In', 'plugin-domain'),
+                ],
+                'default' => ['title', 'description'],
+            ]
+        );
+
+        $repeater->add_control(
+            'content',
+            [
+                'label' => __('Content', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::WYSIWYG,
+                'default' => __('List Content', 'plugin-domain'),
+                'show_label' => false,
             ]
         );
 
@@ -113,15 +138,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
             ]
         );
-        $repeater->add_control(
-            'content',
-            [
-                'label' => __('Content', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::WYSIWYG,
-                'default' => __('List Content', 'plugin-domain'),
-                'show_label' => false,
-            ]
-        );
+     
 
 
 
@@ -149,5 +166,6 @@ class Custom_Slider_Widget extends Widget_Base
      */
     protected function render()
     {
+
     }
 }
