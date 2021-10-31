@@ -7,8 +7,8 @@ class Custom_Slider_Widget extends Widget_Base
     public function __construct($data = [], $args = null)
     {
         parent::__construct($data, $args);
-        wp_register_script('script-handle', 'assets/scripts/animation.js', [], '1.0.0', true);
-        wp_register_style('style-handle', 'assets/styles/main.css');
+        wp_register_script('script-handle', 'assets/scripts/main.js', ['elementor-frontend'], '2.0.0', true);
+        wp_register_style('style-handle', 'assets/scripts/main.css');
     }
 
     public function get_script_depends()
@@ -23,7 +23,7 @@ class Custom_Slider_Widget extends Widget_Base
 
     public function get_name()
     {
-        return 'Custom Slider';
+        return 'customslider';
     }
 
     public function get_title()
@@ -102,33 +102,30 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
         $repeater->add_control(
-            'imganimation',
+            'entrance_animation',
             [
                 'label' => __('Media File Animation', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::SELECT2,
-                'multiple' => false,
-                'options' => [
-                    'Fade In'  => __('Fade In', 'plugin-domain'),
-                    'Fade In'  => __('Fade In', 'plugin-domain'),
-                ],
-                'default' => ['title', 'description'],
+                'type' => \Elementor\Controls_Manager::ANIMATION,
+                'prefix_class' => 'animated ',
             ]
         );
 
         $repeater->add_control(
-            'content',
+            'text_content',
             [
-                'label' => __('Content', 'plugin-domain'),
+                'label' => __('Text', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::WYSIWYG,
                 'default' => __('List Content', 'plugin-domain'),
                 'show_label' => false,
             ]
         );
 
+
+
         $this->add_control(
             'list',
             [
-                'label' => __('Repeater List', 'plugin-domain'),
+                'label' => __('Slider Items', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $repeater->get_controls(),
                 'default' => [
@@ -138,7 +135,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
             ]
         );
-     
+
 
 
 
@@ -152,20 +149,111 @@ class Custom_Slider_Widget extends Widget_Base
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
+        $this->add_control(
+            'text_color',
+            [
+                'label' => __('Text Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .text-content' => 'color: {{VALUE}}',
+                ],
+            ]
+        );
 
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'content_typography',
+                'label' => __('Text Typography', 'plugin-domain'),
+                'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+                'selector' => '{{WRAPPER}} .text-content',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'align',
+            [
+                'label' => __('Text Alignment', 'elementor'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left'    => [
+                        'title' => __('Left', 'elementor'),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Center', 'elementor'),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'right' => [
+                        'title' => __('Right', 'elementor'),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                    'justify' => [
+                        'title' => __('Justified', 'elementor'),
+                        'icon' => 'fa fa-align-justify',
+                    ],
+                ],
+                'prefix_class' => 'elementor%s-align-',
+                'default' => '',
+            ]
+        );
         $this->end_controls_section();
     }
 
-    /**
-     * Render oEmbed widget output on the frontend.
-     *
-     * Written in PHP and used to generate the final HTML.
-     *
-     * @since 1.0.0
-     * @access protected
-     */
     protected function render()
     {
+        $settings = $this->get_settings_for_display();
+?>
 
+        <div class="custom-slider-container">
+            <svg class="meter">
+                <circle id="outline_curves" class="circle outline" cx="50%" cy="50%"></circle>
+
+                <circle id="low" class="circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
+
+                <circle id="avg" class="circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
+
+                <circle id="high" class="circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
+
+                <circle id="mask" class="circle" cx="50%" cy="50%">
+                </circle>
+
+                <circle id="outline_ends" class="circle outline" cx="50%" cy="50%"></circle>
+            </svg>
+            <img class="meter_needle" src="assets/img/gauge-needle.svg" alt="">
+            <input class="slider" type="range" min="0" max="100" value="0" />
+            <label class="lbl" id="value" for="">0</label>
+        </div>
+
+    <?php
+    }
+
+    protected function _content_template()
+    {
+    ?>
+        <div class="custom-slider-container">
+            <svg class="meter">
+                <circle id="outline_curves" class="circle outline" cx="50%" cy="50%"></circle>
+
+                <circle id="low" class="circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
+
+                <circle id="avg" class="circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
+
+                <circle id="high" class="circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
+
+                <circle id="mask" class="circle" cx="50%" cy="50%">
+                </circle>
+
+                <circle id="outline_ends" class="circle outline" cx="50%" cy="50%"></circle>
+            </svg>
+            <img class="meter_needle" src="assets/img/gauge-needle.svg" alt="">
+            <input class="slider" type="range" min="0" max="100" value="0" />
+            <label class="lbl" id="value" for="">0</label>
+        </div>
+<?php
     }
 }
