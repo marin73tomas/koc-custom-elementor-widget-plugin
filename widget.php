@@ -83,15 +83,15 @@ class Custom_Slider_Widget extends Widget_Base
             ],
         );
 
-        $repeater->add_group_control(
-            \Elementor\Group_Control_Image_Size::get_type(),
-            [
-                'name' => 'Media File Size',
-                'exclude' => ['custom'],
-                'include' => [],
-                'default' => 'large',
-            ]
-        );
+        // $repeater->add_group_control(
+        //     \Elementor\Group_Control_Image_Size::get_type(),
+        //     [
+        //         'name' => 'media_file_size',
+        //         'exclude' => ['custom'],
+        //         'include' => [],
+        //         'default' => 'large',
+        //     ]
+        // );
 
         $repeater->add_control(
             'imgposition',
@@ -119,7 +119,7 @@ class Custom_Slider_Widget extends Widget_Base
             [
                 'label' => __('Text', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::WYSIWYG,
-                'default' => __('List Content', 'plugin-domain'),
+                'default' => __('Item content. Click the edit button to change this text.', 'plugin-domain'),
                 'show_label' => false,
             ]
         );
@@ -134,7 +134,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'fields' => $repeater->get_controls(),
                 'default' => [
                     [
-                        'list_content' => __('Item content. Click the edit button to change this text.', 'plugin-domain'),
+                        'text_content' => __('Item content. Click the edit button to change this text.', 'plugin-domain'),
                     ],
                 ],
             ]
@@ -165,6 +165,47 @@ class Custom_Slider_Widget extends Widget_Base
                 'selectors' => [
                     '{{WRAPPER}} .text-content' => 'color: {{VALUE}}',
                 ],
+            ]
+        );
+
+        $this->add_control(
+            'bg_color',
+            [
+                'label' => __('Background Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .cs-wrapper' => 'background-color: {{VALUE}}',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'empty_section_color',
+            [
+                'label' => __('Empty Section Background Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+
+            ]
+        );
+
+        $this->add_control(
+            'fill_section_color',
+            [
+                'label' => __('Fill Section Background Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+
             ]
         );
 
@@ -213,26 +254,58 @@ class Custom_Slider_Widget extends Widget_Base
         $settings = $this->get_settings_for_display();
 ?>
 
-        <div class="custom-slider-container" id="<?php echo gen_uid(); ?>">
-            <svg class="meter">
-                <circle class="outline_curves circle outline" cx="50%" cy="50%"></circle>
+        <div class="cs-wrapper">
+            <div class="gauge_main custom-slider-container" id="<?php echo gen_uid(); ?>">
+                <div class=" gradient" style="<?php
+                                                echo "
+                 background: linear-gradient(0deg, rgba(29, 216, 255, 1) 0%, {$settings['fill_section_color']} 50%, {$settings['empty_section_color']} 50%);
+                "
 
-                <circle class="low circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
 
-                <circle class="avg circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
+                                                ?>"></div>
+                <div class="white"></div>
+                <div class="black"></div>
+                <div class="tick"></div>
+                <?php
+                $count = 1;
+                if ($settings['list']) {
+                    foreach ($settings['list'] as $item) {
+                ?>
+                        <div style="<?php echo "--i:$count"; ?>" class="chamber"></div>
+                <?php
+                        $count++;
+                    }
+                }
 
-                <circle class="high circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
+                ?>
+                <div class="text-container">
+                    <?php
+                    if ($settings['list']) {
+                        foreach ($settings['list'] as $item) {
+                    ?>
+                            <div class="text-item" style="display: none; opacity: 0;">
+                                <p><?php echo $item['text_content']; ?></p>
+                            </div>
+                    <?php
 
-                <circle class="new circle range" cx="50%" cy="50%" stroke="blue"></circle>
+                        }
+                    }
+                    ?>
 
-                <circle class="mask circle" cx="50%" cy="50%">
-                </circle>
+                </div>
 
-                <circle class="outline_ends circle outline" cx="50%" cy="50%"></circle>
-            </svg>
-            <img class="meter_needle" src="<?php echo plugin_dir_url(__FILE__) . '/assets/img/gauge-needle.svg'; ?>" alt="">
-            <input class="slider" type="range" min="0" max="100" value="0" />
-            <label class="lbl value" for="">0</label>
+                <?php
+                ?>
+                <div class="meter"></div>
+                <div class="cs-range-slider">
+                    <input type="range" class="m" name="meter" min="0" max="100" value="0">
+                    <span> </span>
+                </div>
+            </div>
+
+            <div class="hidden-properties" style="display:none">
+                <div class="cs-bg"><?php echo $settings["bg_color"]; ?></div>
+            </div>
         </div>
 
     <?php
@@ -241,28 +314,41 @@ class Custom_Slider_Widget extends Widget_Base
     protected function _content_template()
     {
     ?>
-        <div class="custom-slider-container" id="<?php echo gen_uid(); ?>">
-            <svg class="meter">
-                <circle class="outline_curves circle outline" cx="50%" cy="50%"></circle>
+        <div class="cs-wrapper">
+            <div class="gauge_main custom-slider-container" id="<?php echo gen_uid(); ?>">
+                <div class=" gradient" style="
+                 background: linear-gradient(0deg, rgba(29, 216, 255, 1) 0%, {{{settings.fill_section_color}}} 50%, {{{settings.empty_section_color}}} 50%);
+                "></div>
+                <div class="white"></div>
+                <div class="black"></div>
+                <div class="tick"></div>
 
-                <circle class="low circle range" cx="50%" cy="50%" stroke="#FDE47F"></circle>
-
-                <circle class="avg circle range" cx="50%" cy="50%" stroke="#7CCCE5"></circle>
-
-                <circle class="high circle range" cx="50%" cy="50%" stroke="#E04644"></circle>
-                
-                <circle class="new circle range" cx="50%" cy="50%" stroke="blue"></circle>
+                <# _.each( settings.list, function( item,index ) { #>
+                    <div style="--i:{{{index}}}" class="chamber">
+                    </div>
 
 
-                <circle class="mask circle" cx="50%" cy="50%">
-                </circle>
 
-                <circle class="outline_ends circle outline" cx="50%" cy="50%"></circle>
-            </svg>
-            <img class="meter_needle" src="<?php echo plugin_dir_url(__FILE__) . '/assets/img/gauge-needle.svg'; ?>" alt="">
-            <input class="slider" type="range" min="0" max="100" value="0" />
-            <label class="lbl value" for="">0</label>
+                    <# }); #>
+                        <div class="text-container">
+                            <# _.each( settings.list, function( item,index ) { #>
+                                <div class="text-item" style="display: none; opacity: 0;">
+                                    <p>{{{item.text_content}}}</p>
+                                </div>
+                                <# }); #>
+                        </div>
+
+                        <div class="meter"></div>
+
+                        <input type="range" class="m" name="meter" min="0" max="100" value="0">
+            </div>
+
+            <div class="hidden-properties" style="display:none">
+                <div class="cs-bg">{{settings.bg_color}}</div>
+            </div>
         </div>
+
+
 <?php
     }
 }

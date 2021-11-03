@@ -1,134 +1,184 @@
-.custom-slider-container {
+.cs-wrapper {
+  height: 600px;
+  position: relative;
   width: 100vw;
-  min-height: 800px;
-  
+  overflow: hidden;
+}
+.gauge_main,
+.gauge_main .white,
+.gauge_main .black,
+.gauge_main .tick,
+.gauge_main .gradient,
+.gauge_main .chamber,
+.gauge_main .meter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.4s;
 }
 
-.custom-slider-container {position: relative;  margin: auto;}
-		.custom-slider-container .meter {
-		    width: 100%; height: 100%;
-		    transform: rotateX(180deg);
-        
-		}
-		.custom-slider-container .circle {fill: none;}
-		.custom-slider-container .outline, .custom-slider-container .mask {
-		    stroke: #F1F1F1; 
-		    stroke-width: 65;
-		}
-		.custom-slider-container .range { stroke-width: 60; }
-		.custom-slider-container .slider, .custom-slider-container .lbl {
-		    position: absolute;
-		}
-		.custom-slider-container .slider {
-		    cursor: pointer;
-		    left: 0;
-		    margin: auto;
-		    right: 0;
-		    top: 58%;
-		    width: 94%;
-		}
-		.custom-slider-container .lbl {
-		    background-color: #4B4C51; 
-		    border-radius: 2px;
-		    color: white;   
-		    font-family: 'courier new';
-		    font-size: 15pt;
-		    font-weight: bold;
-		    padding: 4px 4px 2px 4px;
-		    right: -48px;
-		    top: 57%;
-		}
-		.custom-slider-container .meter_needle {
-		    height: 40%;
-		    left: 0;
-		    margin: auto;
-		    position: absolute;
-		    right: 0;
-		    top: 10%;
-		    transform-origin: bottom center;
-		    transform: rotate(270deg);
-		}
-        
-        .custom-slider-container input[type=range] {
-            -webkit-appearance: none;
-        }
-        
-        .custom-slider-container input[type=range]:focus {
-            outline: none;
-        }
-        
-        .custom-slider-container input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 12px;
-            cursor: pointer;
-            background: #F6F6F6;
-            border-radius: 25px;
-            box-shadow: 0 0 0 1px #f6f6f6;
-        }
-        
-        .custom-slider-container input[type=range]::-webkit-slider-thumb {
-            box-shadow: 0 0 2px #B2B2B2;
-            border-radius: 50%;
-            height: 30px;
-            width: 30px;
-            background: #fff;
-            cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -9px;
-        }
-        
-        .custom-slider-container input[type=range]:focus::-webkit-slider-runnable-track {
-            background: #F6F6F6;
+.gauge_main .meter {
+  height: 25vw;
+  width: 100%;
+  border-radius: 50%;
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  z-index: 1000;
+}
 
-        }
-        
-        .custom-slider-container input[type=range]::-moz-range-track {
-            width: 100%;
-            height: 12.8px;
-            cursor: pointer;
-            background: #F6F6F6;
-            border-radius: 25px;
-        }
-        
-        .custom-slider-container input[type=range]::-moz-range-thumb {
-            box-shadow: 0 0 2px #B2B2B2;
-            border-radius: 50%;
-            height: 30px;
-            width: 30px;
-            background: #fff;
-            cursor: pointer;
-        }
-        
-        .custom-slider-container input[type=range]::-ms-track {
-            width: 100%;
-            height: 12.8px;
-            cursor: pointer;
-        }
-        
-        .custom-slider-container input[type=range]::-ms-fill-lower {
-            background: #F6F6F6;
-            border-radius: 50px;
-        }
-        
-        .custom-slider-container input[type=range]::-ms-fill-upper {
-            background: #F6F6F6;
-            border-radius: 50px;
-        }
-        
-        .custom-slider-container input[type=range]::-ms-thumb {
-            height: 30px;
-            width: 30px;
-            top: 5px;
-            position: relative;
-            background: #fff;
-            cursor: pointer;
-            box-shadow: 0 0 2px #B2B2B2;
-        }
-        
-        .custom-slider-container input[type=range]:focus::-ms-fill-lower {
-            background: #F6F6F6;
-        }
-        
-        .custom-slider-container input[type=range]:focus::-ms-fill-upper {
-            background: #F6F6F6;
-        }
+.gauge_main .tick,
+.gauge_main .chamber {
+  background-image: url("/wp-content/plugins/koc-custom-elementor-widget-plugin//assets/img/gauge-needle.png");
+  background-size: containe;
+  z-index: 110;
+  transform-origin: 50%;
+  background-repeat: no-repeat;
+  height: 17px;
+  background-position: center;
+}
+
+.gauge_main .tick {
+  z-index: 1001;
+}
+
+.gauge_main .chamber {
+  left: 50%;
+  width: 100%;
+  height: 5px;
+  transform-origin: 50%;
+
+  z-index: 20;
+}
+
+.gauge_main .white,
+.gauge_main .black,
+.gauge_main .gradient {
+  position: absolute;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.gauge_main .white {
+  z-index: 30;
+}
+
+.gauge_main .gradient {
+  min-height: 280px;
+  min-width: 280px;
+  background: linear-gradient(
+    0deg,
+    rgba(29, 216, 255, 1) 0%,
+    rgba(4, 106, 255, 1) 50%,
+    rgba(208, 212, 255, 1) 50%
+  );
+}
+
+.gauge_main .black {
+  height: 200px;
+  width: 200px;
+  background: linear-gradient(to top, black 50%, rgba(208, 212, 255, 1) 50%);
+  box-shadow: 0px 0px 0px 5px white;
+  z-index: 25;
+  display: none;
+}
+
+@keyframes load {
+  from {
+    transform: translate(-50%, -50%) scaleX(-1) rotateZ(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) scaleX(-1) rotateZ(-180deg);
+  }
+}
+
+.cs-range-slider {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 1001;
+}
+.cs-range-slider input {
+  border-radius: 5px;
+outline: none !important;
+padding: 0 !important;
+height: 15px;
+padding-bottom: 2px !important;
+}
+.cs-range-slider span {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 3px;
+  background: #2c3e50;
+  padding: 5px 10px;
+  margin-left: 8px;
+  float: left;
+}
+.cs-range-slider span:after {
+  position: absolute;
+  top: 8px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #2c3e50;
+  border-bottom: 7px solid transparent;
+  content: "";
+}
+
+
+
+.gauge_main input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
+}
+.gauge_main input::-webkit-slider-thumb:hover {
+  background: #1abc9c;
+}
+.gauge_main input:active::-webkit-slider-thumb {
+  background: #1abc9c;
+}
+.gauge_main input::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+  -moz-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
+}
+.gauge_main input::-moz-range-thumb:hover {
+  background: #1abc9c;
+}
+.gauge_main input:active::-moz-range-thumb {
+  background: #1abc9c;
+}
+.gauge_main input:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 6px #1abc9c;
+}
+
+.gauge_main ::-moz-range-track {
+  background: #d7dcdf !important;
+  border: 0 !important;
+  height: 3px !important;
+}
+
+.gauge_main input::-moz-focus-inner,
+.gauge_main input::-moz-focus-outer {
+  border: 0;
+}
