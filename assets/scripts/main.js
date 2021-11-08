@@ -1,5 +1,3 @@
-
-
 // This function applies the fill to our sliders by using a linear gradient background
 function applyFill(slider) {
   // Let's turn our value into a percentage to figure out how far it is in between the min and max of our input
@@ -23,9 +21,11 @@ function round(num, fixed) {
 async function setUpCustomSlider(cont) {
   const container =
     cont && cont.length >= 1 && document.querySelector(`#${cont[0].id}`);
-
+  //console.log("here", window.last, `last_${cont[0].id}`);
   if (container) {
     const section = container.closest("section");
+    console.log(window.last, !window.last);
+    if (!window.last) window.last = 0;
 
     if (section) {
       section.classList.add(
@@ -61,7 +61,7 @@ async function setUpCustomSlider(cont) {
     white.style.height = "9vw";
     white.style.width = "9vw";
     tick.style.width = "9vw";
-
+    let animationInterval = 0;
     let stylePrint = false;
     chamber.forEach((e, idx) => {
       if (idx == 0) e.classList.add("active");
@@ -96,33 +96,97 @@ async function setUpCustomSlider(cont) {
     // let currentActiveChamber = container.querySelector(".chamber.active");
     //let currentStep = 1;
     mValue.innerHTML = 0;
-    const texts = container.querySelectorAll('.text-item')
+    const texts = wrapper.querySelectorAll(".text-item");
+    const images = wrapper.querySelectorAll(".text-item img");
+    console.log("before", window.last);
     m.addEventListener("input", function () {
       black.style.transform = tick.style.transform =
         "translate(-50%,-50%)scaleX(-1)rotateZ(-" +
         (180 / 100) * m.value +
         "deg)";
-
-      let currentStep = nSteps - 1
+      console.log(window.last);
+      let currentStep =
+        mValue.innerHTML == nSteps - 1
           ? nSteps
           : stepsNumbers.indexOf(
               stepsNumbers.find(
                 (e) => round(Number(e), 2) == round(Number(m.value), 2)
               )
             );
-            
-      mValue.innerHTML = currentStep
+
+      mValue.innerHTML = currentStep;
+      window.last = currentStep;
 
       //console.log(stepsNumbers, round(Number(m.value), 2));
 
-      texts.forEach(e => {
-        e.style.display='none' 
-        e.style.opacity = 1
-      })
-      console.log(texts.length - 1, currentStep - 1);
-      // texts[steps - 1].style.display = 'block'
-      // texts[steps - 1].style.opacity = 1
+      texts.forEach((e) => {
+        e.style.display = "none";
+        e.style.opacity = 1;
+      });
 
+      if (currentStep) {
+        animationInterval && clearInterval(animationInterval);
+        texts[currentStep - 1].style.display = "block";
+        texts[currentStep - 1].style.opacity = 1;
+
+        if (wrapper.querySelector(".copy"))
+          wrapper.removeChild(wrapper.querySelector(".copy"));
+
+        const img = images[currentStep - 1];
+        const div = document.createElement("div");
+        div.classList.add("copy");
+        wrapper.insertBefore(div, wrapper.firstElementChild);
+
+        if (img.className.includes("Child"))
+          div.classList.add(
+            ...img.className
+              .replaceAll("Child", "Parent")
+              .split(" ")
+              .filter((e) => e)
+          );
+
+        div.innerHTML = `
+        <img src="${img.src}"
+        class="animated ${img.className}"
+        alt="${img.alt}" 
+        style="
+        top:${img.style.top};left:${img.style.left};
+         width: ${img.style.width}; 
+       max-width: ${img.style.maxWidth};
+       min-width: ${img.style.minWidth};
+       opacity: ${img.style.opacity};
+        "
+        />
+        `;
+        //console.log(Number(img.nextElementSibling?.innerHTML || 0) * 1000);
+        if (img.classList.contains("repeat-yes")) {
+          div.innerHTML = `
+        <img src="${img.src}"
+        class="animated ${img.className}"
+        alt="${img.alt}" 
+       style="top:${img.style.top};left:${img.style.left}; 
+       width: ${img.style.width}; 
+       max-width: ${img.style.maxWidth};
+       min-width: ${img.style.minWidth};
+         opacity: ${img.style.opacity};
+       animation-iteration-count: infinite !important;
+       animation-duration: ${
+         img.nextElementSibling?.innerHTML || 0 || 4
+       }s !important;
+       "
+        />
+
+        `;
+          if (img.className.includes("Child")) {
+            div.style.cssText = `
+            animation-iteration-count: infinite !important;
+       animation-duration: ${
+         img.nextElementSibling?.innerHTML || 0 || 4
+       }s !important;
+            `;
+          }
+        }
+      }
       gradient.style.transform =
         "translate(-50%,-50%)rotateZ(" + (180 / 100) * m.value + "deg)";
 
@@ -130,11 +194,27 @@ async function setUpCustomSlider(cont) {
       applyFill(m);
     });
 
-    m.value = 0;
+    m.value = m.step * window.last;
+
+    var event = new Event("input", {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    m.dispatchEvent(event);
+
     black.style.transform = tick.style.transform =
       "translate(-50%,-50%)scaleX(-1)rotateZ(-" +
       (180 / 100) * m.value +
       "deg)";
+    texts.forEach((e) => {
+      const eHeight = e.style.height;
+      const pHeight = e.parentElement.style.height;
+      //console.log(e, eHeight, pHeight);
+      e.parentElement.style.height = !pHeight
+        ? eHeight
+        : (pHeight < eHeight && eHeight) || pHeight;
+    });
     applyFill(m);
   }
 }

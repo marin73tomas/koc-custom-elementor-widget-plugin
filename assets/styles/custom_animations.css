@@ -1,0 +1,224 @@
+/* Stretch Left */
+.stretchLeft {
+  animation-name: stretchLeft;
+  transform-origin: 100% 0%;
+}
+@keyframes stretchLeft {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+/* Stretch Right */
+.stretchRight {
+  animation-name: stretchRight;
+  transform-origin: 0% 0%;
+}
+@keyframes stretchRight {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+/* Stretch Down */
+.stretchDown {
+  animation-name: stretchDown;
+  transform-origin: 50% 0%;
+}
+@keyframes stretchDown {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+/* Stretch Up */
+.stretchUp {
+  animation-name: stretchUp;
+  transform-origin: 50% 100%;
+}
+@keyframes stretchUp {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* Stretch Left */
+.stretchLeft {
+  animation-name: stretchLeft;
+  transform-origin: 100% 0%;
+}
+@keyframes stretchLeft {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+/* Stretch Right */
+.stretchRight {
+  animation-name: stretchRight;
+  transform-origin: 0% 0%;
+}
+@keyframes stretchRight {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+/* Stretch Down */
+.stretchDown {
+  animation-name: stretchDown;
+  transform-origin: 50% 0%;
+}
+@keyframes stretchDown {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+/* Stretch Up */
+.stretchUp {
+  animation-name: stretchUp;
+  transform-origin: 50% 100%;
+}
+@keyframes stretchUp {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.slideRightToLeftScreenParent {
+  -webkit-animation: flyBy 4s linear;
+  animation: flyByChild 4s linear;
+}
+.slideRightToLeftScreenChild {
+  -webkit-animation: flyBy 4s linear;
+  animation: flyBy 4s linear;
+}
+
+@keyframes flyBy {
+  0% {
+    transform: translateX(0);
+  }
+  90% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes flyByChild {
+  0% {
+    transform: translate(100%, -50%);
+  }
+  90% {
+    transform: translate(0%, -50%);
+  }
+  100% {
+    transform: translate(0%, -50%);
+  }
+}
+.slideLeftToRightScreenParent {
+  -webkit-animation: flyByTwo 4s linear;
+  animation: flyByTwo 4s linear;
+}
+.slideLeftToRightScreenChild {
+  -webkit-animation: flyByTwo 4s linear;
+  animation: flyByTwo 4s linear;
+}
+
+@keyframes flyByTwo {
+  0% {
+    transform: translateX(-100%);
+  }
+  90% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes flyByChildTwo {
+  0% {
+    transform: translate(-100%, -50%);
+  }
+  90% {
+    transform: translate(100%, -50%);
+  }
+  100% {
+    transform: translate(100%, -50%);
+  }
+}
+.animationWiggle {
+  animation: wiggle 0.2s linear alternate;
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(-4deg) translateY(5%);
+  }
+  100% {
+    transform: rotate(4deg) translateY(5%);
+  }
+}
+
+.inFromTop {
+  animation: inFromTop 0.4s 1s linear forwards;
+}
+.inFromBottom {
+  animation: inFromBottom 0.4s 1s linear forwards;
+}
+.inFromLeft {
+  animation: inFromLeft 0.4s 1s linear forwards;
+}
+.inFromRight {
+  animation: inFromRight 0.4s 1s linear forwards;
+}
+@keyframes inFromTop {
+  0% {
+    transform: translate(-50%, -100%);
+  }
+  100% {
+    transform: translate(-50%, 0%);
+  }
+}
+@keyframes inFromBottom {
+  0% {
+    transform: translate(-50%, -100%);
+  }
+  100% {
+    transform: translate(-50%, 0%);
+  }
+}
+@keyframes inFromLeft {
+  0% {
+    transform: translate(-100%, -50%);
+  }
+  100% {
+    transform: translate(0%, -50%);
+  }
+}
+@keyframes inFromRight {
+  0% {
+    transform: translate(100%, -50%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}

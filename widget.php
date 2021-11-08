@@ -6,6 +6,43 @@ function gen_uid($length = 10)
 {
     return substr(str_shuffle(str_repeat($x = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 }
+
+function lorem($count = 1, $max = 20, $std = TRUE)
+{
+    $out = '';
+    if ($std)
+        $out = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' .
+            'sed do eiusmod tempor incididunt ut labore et dolore magna ' .
+            'aliqua.';
+    $rnd = explode(
+        ' ',
+        'a ab ad accusamus adipisci alias aliquam amet animi aperiam ' .
+            'architecto asperiores aspernatur assumenda at atque aut beatae ' .
+            'blanditiis cillum commodi consequatur corporis corrupti culpa ' .
+            'cum cupiditate debitis delectus deleniti deserunt dicta ' .
+            'dignissimos distinctio dolor ducimus duis ea eaque earum eius ' .
+            'eligendi enim eos error esse est eum eveniet ex excepteur ' .
+            'exercitationem expedita explicabo facere facilis fugiat harum ' .
+            'hic id illum impedit in incidunt ipsa iste itaque iure iusto ' .
+            'laborum laudantium libero magnam maiores maxime minim minus ' .
+            'modi molestiae mollitia nam natus necessitatibus nemo neque ' .
+            'nesciunt nihil nisi nobis non nostrum nulla numquam occaecati ' .
+            'odio officia omnis optio pariatur perferendis perspiciatis ' .
+            'placeat porro possimus praesentium proident quae quia quibus ' .
+            'quo ratione recusandae reiciendis rem repellat reprehenderit ' .
+            'repudiandae rerum saepe sapiente sequi similique sint soluta ' .
+            'suscipit tempora tenetur totam ut ullam unde vel veniam vero ' .
+            'vitae voluptas'
+    );
+    $max = $max <= 3 ? 4 : $max;
+    for ($i = 0, $add = $count - (int)$std; $i < $add; $i++) {
+        shuffle($rnd);
+        $words = array_slice($rnd, 0, mt_rand(3, $max));
+        $out .= (!$std && $i == 0 ? '' : ' ') . ucfirst(implode(' ', $words)) . '.';
+    }
+    return $out;
+}
+
 class Custom_Slider_Widget extends Widget_Base
 {
     public function __construct($data = [], $args = null)
@@ -13,6 +50,7 @@ class Custom_Slider_Widget extends Widget_Base
         parent::__construct($data, $args);
         wp_register_script('script-handle', plugin_dir_url(__FILE__) . 'assets/scripts/main.js', ['elementor-frontend'], '25.0.0', true);
         wp_register_style('style-handle', plugin_dir_url(__FILE__) . 'assets/styles/main.css');
+        wp_register_style('ca-handle', plugin_dir_url(__FILE__) . 'assets/styles/custom_animations.css');
     }
 
     public function get_script_depends()
@@ -22,7 +60,7 @@ class Custom_Slider_Widget extends Widget_Base
 
     public function get_style_depends()
     {
-        return ['style-handle'];
+        return ['style-handle', 'ca-handle'];
     }
 
     public function get_name()
@@ -72,7 +110,7 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
         $repeater->add_control(
-            'list_media',
+            'media',
             [
                 'name' => 'Choose Media File',
                 'label' => __('Animate Media', 'elementor'),
@@ -93,18 +131,107 @@ class Custom_Slider_Widget extends Widget_Base
         //     ]
         // );
 
-        $repeater->add_control(
+        $repeater->add_responsive_control(
             'imgposition',
             [
                 'label' => __('Media File Position', 'plugin-domain'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
+                'default' => [
+                    'size' => 0,
+                    'unit' => '%',
+                ],
+                'allowed_dimensions' => ['top', 'left'],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img' => 'top: {{TOP}}{{UNIT}}; right: {{RIGHT}}{{UNIT}}; bottom: {{BOTTOM}}{{UNIT}}; left: {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .copy img' => 'top: {{TOP}}{{UNIT}} !important; right: {{RIGHT}}{{UNIT}} !important; bottom: {{BOTTOM}}{{UNIT}} !important; left: {{LEFT}}{{UNIT}} !important; ',
                 ],
             ]
         );
-
+        $repeater->add_control(
+            'imgsize',
+            [
+                'label' => __('Size (%)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 30,
+                    'unit' => '%',
+                ],
+                'tablet_default' => [
+                    'unit' => '%',
+                ],
+                'mobile_default' => [
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .copy img' => 'width: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $repeater->add_responsive_control(
+            'imgminsize',
+            [
+                'label' => __('Min Width (px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range' => [
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} copy img' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $repeater->add_responsive_control(
+            'imgmaxsize',
+            [
+                'label' => __('Max Width (px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range' => [
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} copy img' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $repeater->add_control(
+            'opacity',
+            [
+                'label' => __('Opacity (%)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 1,
+                ],
+                'range' => [
+                    'px' => [
+                        'max' => 1,
+                        'min' => 0.10,
+                        'step' => 0.01,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} copy img' => 'opacity: {{SIZE}} !important;',
+                ],
+            ]
+        );
         $repeater->add_control(
             'entrance_animation',
             [
@@ -114,17 +241,40 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
+
+        $repeater->add_control(
+            'repeat_animation',
+            [
+                'label' => __('Repeat Animation', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'your-plugin'),
+                'label_off' => __(
+                    'NO',
+                    'your-plugin'
+                ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $repeater->add_control(
+            'animation_delay',
+            [
+                'label' => __('Animation Delay In Seconds', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __('4', 'plugin-domain'),
+            ]
+        );
+
         $repeater->add_control(
             'text_content',
             [
                 'label' => __('Text', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::WYSIWYG,
-                'default' => __('Item content. Click the edit button to change this text.', 'plugin-domain'),
+                'default' => __(lorem(1, 1), 'plugin-domain'),
                 'show_label' => false,
             ]
         );
-
-
 
         $this->add_control(
             'list',
@@ -153,6 +303,37 @@ class Custom_Slider_Widget extends Widget_Base
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
+        $this->add_responsive_control(
+            'sectionminheight',
+            [
+                'label' => __('Section Min Height (%)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 100,
+                    'unit' => 'vh',
+                ],
+                'size_units' => ['vh', '%', 'px', 'em', 'rem'],
+                'range' => [
+                    'vh' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 3000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .cs-wrapper' => 'min-height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+
         $this->add_control(
             'text_color',
             [
@@ -163,7 +344,7 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .text-content' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .text-item p' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -215,7 +396,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'name' => 'content_typography',
                 'label' => __('Text Typography', 'plugin-domain'),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-                'selector' => '{{WRAPPER}} .text-content',
+                'selector' => '{{WRAPPER}} .text-item p',
             ]
         );
 
@@ -255,6 +436,38 @@ class Custom_Slider_Widget extends Widget_Base
 ?>
 
         <div class="cs-wrapper">
+            <div class="text-container">
+                <?php
+                if ($settings['list']) {
+                    foreach ($settings['list'] as $item) {
+                ?>
+                        <div class="text-item" style="display: none; opacity: 0;">
+                            <p><?php echo $item['text_content']; ?></p>
+                            <img style="
+                             top: <?php
+                                    $unit = $item['imgposition']['unit'];
+                                    echo $item['imgposition']['top'] . $unit;
+
+                                    ?>;
+                            left: <?php echo $item['imgposition']['left'] . $unit; ?>;
+                            width: <?php echo $item['imgsize']['size'] . $item['imgsize']['unit']; ?>;
+                            min-width: <?php echo $item['imgminsize']['size'] . $item['imgminsize']['unit']; ?>;
+                            max-width: <?php echo $item['imgmaxsize']['size'] . $item['imgmaxsize']['unit']; ?>;
+                            display:none;
+                            opacity: <?php echo $item['opacity']; ?>;
+                            " class="<?php echo  $item['entrance_animation'];
+                                        echo " repeat-" . $item['repeat_animation'];
+
+                                        ?> " loading=" lazy" src="<?php echo $item['media']['url']; ?>" alt="<?php echo $item['media']['id']; ?>">
+                            <div class="a-delay" style="display:none"><?php echo  $item['animation_delay']; ?></div>
+                        </div>
+                <?php
+
+                    }
+                }
+                ?>
+
+            </div>
             <div class="gauge_main custom-slider-container" id="<?php echo gen_uid(); ?>">
                 <div class=" gradient" style="<?php
                                                 echo "
@@ -271,38 +484,26 @@ class Custom_Slider_Widget extends Widget_Base
                 if ($settings['list']) {
                     foreach ($settings['list'] as $item) {
                 ?>
-                        <div style="<?php echo "--i:$count"; ?>" class="chamber"></div>
+                        <div style="<?php echo "--i:$count"; ?>" class="chamber">
+
+                        </div>
                 <?php
                         $count++;
                     }
                 }
 
                 ?>
-                <div class="text-container">
-                    <?php
-                    if ($settings['list']) {
-                        foreach ($settings['list'] as $item) {
-                    ?>
-                            <div class="text-item" style="display: none; opacity: 0;">
-                                <p><?php echo $item['text_content']; ?></p>
-                            </div>
-                    <?php
 
-                        }
-                    }
-                    ?>
-
-                </div>
 
                 <?php
                 ?>
                 <div class="meter"></div>
-                <div class="cs-range-slider">
-                    <input type="range" class="m" name="meter" min="0" max="100" value="0">
-                    <span> </span>
-                </div>
-            </div>
 
+            </div>
+            <div class="cs-range-slider">
+                <input type="range" class="m" name="meter" min="0" max="100" value="0">
+                <span> </span>
+            </div>
             <div class="hidden-properties" style="display:none">
                 <div class="cs-bg"><?php echo $settings["bg_color"]; ?></div>
             </div>
@@ -315,6 +516,24 @@ class Custom_Slider_Widget extends Widget_Base
     {
     ?>
         <div class="cs-wrapper">
+            <div class="text-container">
+                <# _.each( settings.list, function( item,index ) { #>
+                    <div class="text-item" style="display: none; opacity: 0;">
+                        <p>{{{item.text_content}}}</p>
+                        <img style="
+                         top:{{{item.imgposition.top}}}{{{item.imgposition.unit}}};
+                        left:{{{item.imgposition.left}}}{{{item.imgposition.unit}}};
+                        width: {{{item.imgsize.size}}}{{{item.imgsize.unit}}};
+                        min-width: {{{item.imgminsize.size}}}{{{item.imgminsize.unit}}};
+                        max-width: {{{item.imgmaxsize.size}}}{{{item.imgmaxsize.unit}}};
+                        display:none;
+                        opacity: {{{item.opacity}}};
+                        " class="{{ item.entrance_animation }} repeat-{{ item.repeat_animation }}" loading=" lazy" src="{{{item.media.url}}}" alt="{{{item.media.id}}}">
+                        <div class="a-delay" style="display:none">{{{item.animation_delay}}}</div>
+                    </div>
+                    <# }); #>
+            </div>
+
             <div class="gauge_main custom-slider-container" id="<?php echo gen_uid(); ?>">
                 <div class=" gradient" style="
                  background: linear-gradient(0deg, rgba(29, 216, 255, 1) 0%, {{{settings.fill_section_color}}} 50%, {{{settings.empty_section_color}}} 50%);
@@ -330,19 +549,15 @@ class Custom_Slider_Widget extends Widget_Base
 
 
                     <# }); #>
-                        <div class="text-container">
-                            <# _.each( settings.list, function( item,index ) { #>
-                                <div class="text-item" style="display: none; opacity: 0;">
-                                    <p>{{{item.text_content}}}</p>
-                                </div>
-                                <# }); #>
-                        </div>
 
                         <div class="meter"></div>
 
-                        <input type="range" class="m" name="meter" min="0" max="100" value="0">
-            </div>
 
+            </div>
+            <div class="cs-range-slider">
+                <input type="range" class="m" name="meter" min="0" max="100" value="0">
+                <span> </span>
+            </div>
             <div class="hidden-properties" style="display:none">
                 <div class="cs-bg">{{settings.bg_color}}</div>
             </div>
