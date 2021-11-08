@@ -144,10 +144,13 @@ async function setUpCustomSlider(cont) {
               .split(" ")
               .filter((e) => e)
           );
+        console.log(document.body.classList);
 
         div.innerHTML = `
         <img src="${img.src}"
-        class="animated ${img.className}"
+        class="elementor-repeater-item-${currentStep - 1} animated ${
+          img.className
+        }"
         alt="${img.alt}" 
         style="
         top:${img.style.top};left:${img.style.left};
@@ -162,9 +165,11 @@ async function setUpCustomSlider(cont) {
         if (img.classList.contains("repeat-yes")) {
           div.innerHTML = `
         <img src="${img.src}"
-        class="animated ${img.className}"
+        class="elementor-repeater-item-${currentStep - 1} animated ${
+            img.className
+          }"
         alt="${img.alt}" 
-       style="top:${img.style.top};left:${img.style.left}; 
+       style="top:${img.style.top};left:${img.style.left} ; 
        width: ${img.style.width}; 
        max-width: ${img.style.maxWidth};
        min-width: ${img.style.minWidth};

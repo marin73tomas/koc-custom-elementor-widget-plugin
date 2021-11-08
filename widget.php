@@ -130,23 +130,70 @@ class Custom_Slider_Widget extends Widget_Base
         //         'default' => 'large',
         //     ]
         // );
-
         $repeater->add_responsive_control(
-            'imgposition',
+            'imgpostop',
             [
-                'label' => __('Media File Position', 'plugin-domain'),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
+                'label' => __('Media Top Position', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 0,
+                    'size' => 50,
                     'unit' => '%',
                 ],
-                'allowed_dimensions' => ['top', 'left'],
+                'tablet_default' => [
+                    'unit' => '%',
+                ],
+                'mobile_default' => [
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
+                    ],
+                ],
                 'selectors' => [
-                    '{{WRAPPER}} .copy img' => 'top: {{TOP}}{{UNIT}} !important; right: {{RIGHT}}{{UNIT}} !important; bottom: {{BOTTOM}}{{UNIT}} !important; left: {{LEFT}}{{UNIT}} !important; ',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} .copy img' => 'top: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
+        $repeater->add_responsive_control(
+            'imgposleft',
+            [
+                'label' => __('Media Left Position', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 50,
+                    'unit' => '%',
+                ],
+                'tablet_default' => [
+                    'unit' => '%',
+                ],
+                'mobile_default' => [
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .copy img.{{CURRENT_ITEM}}' => 'left: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+
+
         $repeater->add_control(
             'imgsize',
             [
@@ -349,6 +396,73 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
+        $this->add_responsive_control(
+            'textposition',
+            [
+                'label' => __('Text Position (Top)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 40,
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px', 'em', 'rem'],
+                'range' => [
+                    'em' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 3000,
+                    ],
+                    'rem' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .text-item' => 'top: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'textwidth',
+            [
+                'label' => __('Text Max Width', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 80,
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px', 'em', 'rem'],
+                'range' => [
+                    'em' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 3000,
+                    ],
+                    'rem' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .text-item' => 'top: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
         $this->add_control(
             'bg_color',
             [
@@ -445,11 +559,11 @@ class Custom_Slider_Widget extends Widget_Base
                             <p><?php echo $item['text_content']; ?></p>
                             <img style="
                              top: <?php
-                                    $unit = $item['imgposition']['unit'];
-                                    echo $item['imgposition']['top'] . $unit;
+
+                                    echo $item['imgpostop']['size'] . $item['imgpostop']['unit'];
 
                                     ?>;
-                            left: <?php echo $item['imgposition']['left'] . $unit; ?>;
+                            left: <?php echo $item['imgposleft']['size'] . $item['imgposleft']['unit']; ?>;
                             width: <?php echo $item['imgsize']['size'] . $item['imgsize']['unit']; ?>;
                             min-width: <?php echo $item['imgminsize']['size'] . $item['imgminsize']['unit']; ?>;
                             max-width: <?php echo $item['imgmaxsize']['size'] . $item['imgmaxsize']['unit']; ?>;
@@ -521,8 +635,8 @@ class Custom_Slider_Widget extends Widget_Base
                     <div class="text-item" style="display: none; opacity: 0;">
                         <p>{{{item.text_content}}}</p>
                         <img style="
-                         top:{{{item.imgposition.top}}}{{{item.imgposition.unit}}};
-                        left:{{{item.imgposition.left}}}{{{item.imgposition.unit}}};
+                         top:{{{item.imgpostop.size}}}{{{item.imgpostop.unit}}};
+                        left:{{{item.imgposleft.left}}}{{{item.imgposleft.unit}}};
                         width: {{{item.imgsize.size}}}{{{item.imgsize.unit}}};
                         min-width: {{{item.imgminsize.size}}}{{{item.imgminsize.unit}}};
                         max-width: {{{item.imgmaxsize.size}}}{{{item.imgmaxsize.unit}}};
