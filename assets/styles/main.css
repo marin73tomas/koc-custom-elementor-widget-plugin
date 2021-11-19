@@ -211,7 +211,18 @@
 .gauge_main {
   top: 80% !important;
 }
-.cs-range-slider {
+.cs-wrapper .cs-range-slider {
   max-width: 80%;
   bottom: 0;
+}
+.cs-wrapper .text-item p {
+    word-wrap: break-word;
+}
+.cs-wrapper .visible-img {
+  display: block !important;
+}
+
+.cs-wrapper .img-container img {
+  position: absolute;
+  z-index: 99;
 }

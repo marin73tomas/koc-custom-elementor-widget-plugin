@@ -1,17 +1,18 @@
 // This function applies the fill to our sliders by using a linear gradient background
-function applyFill(slider) {
+function applyFill(slider, trackColor) {
+  console.log(trackColor);
   // Let's turn our value into a percentage to figure out how far it is in between the min and max of our input
   const settings = {
-    fill: "red",
+    fill: "gray",
     background: "#d7dcdf",
   };
   const percentage =
     (100 * (slider.value - slider.min)) / (slider.max - slider.min);
   // now we'll create a linear gradient that separates at the above point
   // Our background color will change here
-  const bg = `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${
-    settings.background
-  } ${percentage + 0.1}%)`;
+  const bg = `linear-gradient(90deg, ${
+    trackColor || settings.fill
+  } ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
   slider.style.background = bg;
 }
 function round(num, fixed) {
@@ -49,7 +50,38 @@ async function setUpCustomSlider(cont) {
       section.appendChild(placeHolder);
     }
     const wrapper = container.parentElement;
-    const bgColor = wrapper.querySelector(".cs-bg");
+    
+    const bgColor = wrapper.querySelector(".cs-bg")?.innerHTML || 'white';
+    const trackColor = wrapper.querySelector(".track-color")?.innerHTML;
+    const thumbColor = wrapper.querySelector(".thumb-color")?.innerHTML;
+    const thumbHoverColor =
+      wrapper.querySelector(".thumb-hover-color")?.innerHTML;
+    const styleThumb = document.createElement("style");
+    styleThumb.innerHTML = `
+
+    .cs-wrapper input::-moz-range-thumb{
+      background: ${thumbColor} !important;
+    }
+    .cs-wrapper input::-webkit-slider-thumb {
+    background: ${thumbColor} !important;
+    }
+    .cs-wrapper input:active::-moz-range-thumb{
+      background: ${thumbHoverColor} !important;
+    }
+    .cs-wrapper input::-moz-range-thumb:hover {
+    background: ${thumbHoverColor} !important;
+    }
+    .cs-wrapper input:active::-moz-range-thumb {
+   background: ${thumbHoverColor} !important;
+    }
+    .cs-wrapper input::-webkit-slider-thumb:hover {
+    background: ${thumbHoverColor} !important;
+    }
+    .cs-wrapper input:active::-webkit-slider-thumb {
+    background: ${thumbHoverColor} !important;
+    } 
+    `;
+    wrapper.appendChild(styleThumb);
     const meter = container.querySelector(".meter");
     const white = container.querySelector(".white");
     const chamber = container.querySelectorAll(".chamber");
@@ -65,7 +97,7 @@ async function setUpCustomSlider(cont) {
     let stylePrint = false;
     chamber.forEach((e, idx) => {
       if (idx == 0) e.classList.add("active");
-      e.style.background = `linear-gradient(to right, ${bgColor.innerHTML} 50%, ${bgColor.innerHTML} 50%)`;
+      e.style.background = `linear-gradient(to right, ${bgColor} 50%, ${bgColor} 50%)`;
 
       if (!stylePrint) {
         const styling = `#${cont[0].id} .chamber { 
@@ -81,8 +113,8 @@ async function setUpCustomSlider(cont) {
       }
     });
 
-    white.style.backgroundColor = bgColor.innerHTML;
-    meter.style.backgroundColor = bgColor.innerHTML;
+    white.style.backgroundColor = bgColor;
+    meter.style.backgroundColor = bgColor;
     const nSteps = chamber.length;
 
     var m = wrapper.querySelector(".cs-range-slider .m");
@@ -92,19 +124,23 @@ async function setUpCustomSlider(cont) {
     );
     m.setAttribute("step", `${steps}`);
     var mValue = wrapper.querySelector(".cs-range-slider span");
-    //let previous = m.value;
-    // let currentActiveChamber = container.querySelector(".chamber.active");
-    //let currentStep = 1;
+
     mValue.innerHTML = 0;
     const texts = wrapper.querySelectorAll(".text-item");
-    const images = wrapper.querySelectorAll(".text-item img");
+
     console.log("before", window.last);
+
     m.addEventListener("input", function () {
+      const allImages = wrapper.querySelectorAll(`.img-container img`);
+      allImages.forEach((img) =>
+        img.classList.remove("animated", "visible-img")
+      );
+
       black.style.transform = tick.style.transform =
         "translate(-50%,-50%)scaleX(-1)rotateZ(-" +
         (180 / 100) * m.value +
         "deg)";
-      console.log(window.last);
+
       let currentStep =
         mValue.innerHTML == nSteps - 1
           ? nSteps
@@ -117,7 +153,15 @@ async function setUpCustomSlider(cont) {
       mValue.innerHTML = currentStep;
       window.last = currentStep;
 
-      //console.log(stepsNumbers, round(Number(m.value), 2));
+      const images = wrapper
+        .querySelectorAll(`.img-container .media`)
+        ?.[currentStep - 1]?.querySelectorAll("img");
+      console.log(images, currentStep);
+      (images || []).forEach(
+        (img) =>
+          !img.src.includes("/elementor/assets/images/placeholder.png") &&
+          img.classList.add("animated", "visible-img")
+      );
 
       texts.forEach((e) => {
         e.style.display = "none";
@@ -125,78 +169,50 @@ async function setUpCustomSlider(cont) {
       });
 
       if (currentStep) {
-        animationInterval && clearInterval(animationInterval);
         texts[currentStep - 1].style.display = "block";
         texts[currentStep - 1].style.opacity = 1;
 
-        if (wrapper.querySelector(".copy"))
-          wrapper.removeChild(wrapper.querySelector(".copy"));
+        // if (img.className.includes("Child"))
+        //   div.classList.add(
+        //     ...img.className
+        //       .replaceAll("Child", "Parent")
+        //       .split(" ")
+        //       .filter((e) => e)
+        //   );
 
-        const img = images[currentStep - 1];
-        const div = document.createElement("div");
-        div.classList.add("copy");
-        wrapper.insertBefore(div, wrapper.firstElementChild);
+        //   if (img.classList.contains("repeat-yes")) {
+        //     div.innerHTML = `
+        //   <img src="${img.src}"
+        //   class="${img.getAttribute("data-id")} animated ${img.className}"
+        //   alt="${img.alt}"
+        //  style="top:${img.style.top};left:${img.style.left} ;
+        //  width: ${img.style.width};
+        //  max-width: ${img.style.maxWidth};
+        //  min-width: ${img.style.minWidth};
+        //    opacity: ${img.style.opacity};
+        //  animation-iteration-count: infinite !important;
+        //  animation-duration: ${
+        //    img.nextElementSibling?.innerHTML || 0 || 4
+        //  }s !important;
+        //  "
+        //   />
 
-        if (img.className.includes("Child"))
-          div.classList.add(
-            ...img.className
-              .replaceAll("Child", "Parent")
-              .split(" ")
-              .filter((e) => e)
-          );
-        console.log(document.body.classList);
-
-        div.innerHTML = `
-        <img src="${img.src}"
-        class="elementor-repeater-item-${currentStep - 1} animated ${
-          img.className
-        }"
-        alt="${img.alt}" 
-        style="
-        top:${img.style.top};left:${img.style.left};
-         width: ${img.style.width}; 
-       max-width: ${img.style.maxWidth};
-       min-width: ${img.style.minWidth};
-       opacity: ${img.style.opacity};
-        "
-        />
-        `;
-        //console.log(Number(img.nextElementSibling?.innerHTML || 0) * 1000);
-        if (img.classList.contains("repeat-yes")) {
-          div.innerHTML = `
-        <img src="${img.src}"
-        class="elementor-repeater-item-${currentStep - 1} animated ${
-            img.className
-          }"
-        alt="${img.alt}" 
-       style="top:${img.style.top};left:${img.style.left} ; 
-       width: ${img.style.width}; 
-       max-width: ${img.style.maxWidth};
-       min-width: ${img.style.minWidth};
-         opacity: ${img.style.opacity};
-       animation-iteration-count: infinite !important;
-       animation-duration: ${
-         img.nextElementSibling?.innerHTML || 0 || 4
-       }s !important;
-       "
-        />
-
-        `;
-          if (img.className.includes("Child")) {
-            div.style.cssText = `
-            animation-iteration-count: infinite !important;
-       animation-duration: ${
-         img.nextElementSibling?.innerHTML || 0 || 4
-       }s !important;
-            `;
-          }
-        }
+        //   `;
+        //     if (img.className.includes("Child")) {
+        //       div.style.cssText = `
+        //       animation-iteration-count: infinite !important;
+        //  animation-duration: ${
+        //    img.nextElementSibling?.innerHTML || 0 || 4
+        //  }s !important;
+        //       `;
+        //     }
+        //   }
       }
       gradient.style.transform =
         "translate(-50%,-50%)rotateZ(" + (180 / 100) * m.value + "deg)";
 
       // 2. apply our fill to the input
-      applyFill(m);
+      applyFill(m, trackColor);
     });
 
     m.value = m.step * window.last;
@@ -220,7 +236,7 @@ async function setUpCustomSlider(cont) {
         ? eHeight
         : (pHeight < eHeight && eHeight) || pHeight;
     });
-    applyFill(m);
+    applyFill(m, trackColor);
   }
 }
 
