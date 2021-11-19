@@ -64,9 +64,12 @@
 
 }
 
+
+
+
 @media (max-width:1100px){
   .gauge_main, .gauge_main .white, .gauge_main .black, .gauge_main .tick, .gauge_main .gradient, .gauge_main .chamber, .gauge_main .meter {
-    top: 70% !important;
+    top: 60% !important;
   }
 }
 
@@ -74,8 +77,8 @@
 
 .gauge_main .tick,
 .gauge_main .chamber {
-  background-image: url("/wp-content/plugins/koc-custom-elementor-widget-plugin//assets/img/gauge-needle.png");
-  background-size: containe;
+  background-image: url("/wp-content/plugins/koc-custom-elementor-widget-plugin-main/assets/img/gauge-needle.png");
+  background-size: contain;
   z-index: 110;
   transform-origin: 50%;
   background-repeat: no-repeat;
