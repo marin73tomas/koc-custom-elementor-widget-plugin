@@ -64,29 +64,33 @@
 
 }
 
-@media (max-width:1100px){
+/* @media (max-width:1100px){
   .gauge_main, .gauge_main .white, .gauge_main .black, .gauge_main .tick, .gauge_main .gradient, .gauge_main .chamber, .gauge_main .meter {
     top: 70% !important;
   }
-}
+} */
 
 
 
 .gauge_main .tick,
 .gauge_main .chamber {
-  background-image: url("/wp-content/plugins/koc-custom-elementor-widget-plugin//assets/img/gauge-needle.png");
-  background-size: containe;
+  /* background-image: url("/wp-content/plugins/koc-custom-elementor-widget-plugin/assets/img/tickle-needle.svg"); */
+  
   z-index: 110;
   transform-origin: 50%;
   background-repeat: no-repeat;
-  height: 17px;
+  height: 25px;
   background-position: center;
 }
 
 .gauge_main .tick {
   z-index: 1001;
+  height: auto !important;
 }
-
+.gauge_main .tick svg {
+    width: 100% !important;
+    height: 100% !important;
+}
 /* .gauge_main .chamber {
   left: 50%;
   width: 100%;
@@ -243,9 +247,9 @@
 .cs-wrapper input::-moz-focus-outer {
   border: 0;
 }
-.gauge_main {
-  top: 80% !important;
-}
+/* .gauge_main {
+  top: 70% !important;
+} */
 .cs-wrapper .cs-range-slider {
   max-width: 80%;
   bottom: 0;
@@ -260,4 +264,15 @@
 .cs-wrapper .img-container img {
   position: absolute;
   z-index: 99;
+}
+.label-slider{
+  position: absolute;
+}
+.label-slider.label-right{
+  bottom: 4em;
+  right: 0;
+}
+.label-slider.label-left{
+  bottom: 4em;
+  left: 0;
 }

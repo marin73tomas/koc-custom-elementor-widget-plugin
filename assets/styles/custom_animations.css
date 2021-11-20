@@ -104,68 +104,23 @@
   }
 }
 
-.slideRightToLeftScreenParent {
-  -webkit-animation: flyBy 4s linear;
-  animation: flyByChild 4s linear;
+@keyframes animateLeftToRight {
+    0% {
+        left: -120vw;
+    }
+    100% {
+        left: 100%;
+    }
 }
-.slideRightToLeftScreenChild {
-  -webkit-animation: flyBy 4s linear;
-  animation: flyBy 4s linear;
-}
-
-@keyframes flyBy {
-  0% {
-    transform: translateX(0);
-  }
-  90% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-@keyframes flyByChild {
-  0% {
-    transform: translate(100%, -50%);
-  }
-  90% {
-    transform: translate(0%, -50%);
-  }
-  100% {
-    transform: translate(0%, -50%);
-  }
-}
-.slideLeftToRightScreenParent {
-  -webkit-animation: flyByTwo 4s linear;
-  animation: flyByTwo 4s linear;
-}
-.slideLeftToRightScreenChild {
-  -webkit-animation: flyByTwo 4s linear;
-  animation: flyByTwo 4s linear;
+@keyframes animateRightToLeft {
+    0% {
+        right: -120vw;
+    }
+    100% {
+        right: 100%;
+    }
 }
 
-@keyframes flyByTwo {
-  0% {
-    transform: translateX(-100%);
-  }
-  90% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-@keyframes flyByChildTwo {
-  0% {
-    transform: translate(-100%, -50%);
-  }
-  90% {
-    transform: translate(100%, -50%);
-  }
-  100% {
-    transform: translate(100%, -50%);
-  }
-}
 .animationWiggle {
   animation: wiggle 0.2s linear alternate;
 }

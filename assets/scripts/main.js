@@ -25,7 +25,7 @@ async function setUpCustomSlider(cont) {
   //console.log("here", window.last, `last_${cont[0].id}`);
   if (container) {
     const section = container.closest("section");
-    console.log(window.last, !window.last);
+    //console.log(window.last, !window.last);
     if (!window.last) window.last = 0;
 
     if (section) {
@@ -128,7 +128,7 @@ async function setUpCustomSlider(cont) {
     mValue.innerHTML = 0;
     const texts = wrapper.querySelectorAll(".text-item");
 
-    console.log("before", window.last);
+    //console.log("before", window.last);
 
     m.addEventListener("input", function () {
       const allImages = wrapper.querySelectorAll(`.img-container img`);
@@ -156,7 +156,7 @@ async function setUpCustomSlider(cont) {
       const images = wrapper
         .querySelectorAll(`.img-container .media`)
         ?.[currentStep - 1]?.querySelectorAll("img");
-      console.log(images, currentStep);
+      //console.log(images, currentStep);
       (images || []).forEach(
         (img) =>
           !img.src.includes("/elementor/assets/images/placeholder.png") &&

@@ -75,7 +75,7 @@ class Custom_Slider_Widget extends Widget_Base
 
     public function get_icon()
     {
-        return 'fa fa-dot-circle';
+        return 'eicon-slider-push';
     }
 
     public function get_categories()
@@ -91,6 +91,25 @@ class Custom_Slider_Widget extends Widget_Base
             [
                 'label' => __('Content', 'plugin-name'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+        $this->add_control(
+            'label_left',
+            [
+                'label' => __('Left Label', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __('Less Hard Sell', 'plugin-domain'),
+                'placeholder' => __('Type your title here', 'plugin-domain'),
+            ]
+        );
+        $this->add_control(
+            'label_right',
+            [
+                'label' => __('Right Label', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __('More Hard Sell', 'plugin-domain'),
+                'placeholder' => __('Type your title here', 'plugin-domain'),
             ]
         );
 
@@ -192,7 +211,7 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
 
-        $repeater->add_control(
+        $repeater->add_responsive_control(
             'imgsize1',
             [
                 'label' => __('Size (%)', 'elementor'),
@@ -277,24 +296,13 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
             ]
         );
+
         $repeater->add_control(
             'entrance_animation1',
             [
                 'label' => __('Media File Animation', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::ANIMATION,
                 'prefix_class' => 'animated ',
-            ]
-        );
-
-        $repeater->add_control(
-            'delete_content',
-            [
-                'label' => __('Delete Content', 'plugin-name'),
-                'type' => \Elementor\Controls_Manager::BUTTON,
-                'separator' => 'before',
-                'button_type' => 'success',
-                'text' => __('Delete', 'plugin-domain'),
-                'event' => 'namespace:editor:delete',
             ]
         );
 
@@ -411,7 +419,7 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
 
-        $repeater->add_control(
+        $repeater->add_responsive_control(
             'imgsize2',
             [
                 'label' => __('Size (%)', 'elementor'),
@@ -628,7 +636,7 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
 
-        $repeater->add_control(
+        $repeater->add_responsive_control(
             'imgsize3',
             [
                 'label' => __('Size (%)', 'elementor'),
@@ -836,7 +844,7 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
 
-        $repeater->add_control(
+        $repeater->add_responsive_control(
             'imgsize4',
             [
                 'label' => __('Size (%)', 'elementor'),
@@ -1008,6 +1016,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
+
         $this->add_responsive_control(
             'sectionminheight',
             [
@@ -1038,6 +1047,101 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
+        $this->add_responsive_control(
+            'speedosize',
+            [
+                'label' => __('Speedometer Size (vw,px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 17,
+                    'unit' => 'vw',
+                ],
+                'tablet_default' => [
+                    'unit' => 'vw',
+                ],
+                'mobile_default' => [
+                    'unit' => 'vw',
+                ],
+                'size_units' => ['vw', 'px'],
+                'range' => [
+                    'vw' => [
+                        'min' => 17,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 280,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .gradient' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'speedoinnersize',
+            [
+                'label' => __('Speedometer Inner Circle Size (vw,px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 11,
+                    'unit' => 'vw',
+                ],
+                'tablet_default' => [
+                    'unit' => 'vw',
+                ],
+                'mobile_default' => [
+                    'unit' => 'vw',
+                ],
+                'size_units' => ['vw', 'px'],
+                'range' => [
+                    'vw' => [
+                        'min' => 9,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 153,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .white' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'speedometerpos',
+            [
+                'label' => __('Speedometer position (Top)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 70,
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px', 'em', 'rem'],
+                'range' => [
+                    'em' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 3000,
+                    ],
+                    'rem' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .gauge_main, .gauge_main .white, .gauge_main .black, .gauge_main .tick, .gauge_main .gradient, .gauge_main .chamber, .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
 
         $this->add_control(
             'text_color',
@@ -1055,7 +1159,43 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
             ]
         );
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'content_typography',
+                'label' => __('Text Typography', 'plugin-domain'),
+                'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+                'selector' => '{{WRAPPER}} .text-item p',
+            ]
+        );
 
+        $this->add_responsive_control(
+            'align',
+            [
+                'label' => __('Text Alignment', 'elementor'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left'    => [
+                        'title' => __('Left', 'elementor'),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Center', 'elementor'),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'right' => [
+                        'title' => __('Right', 'elementor'),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                    'justify' => [
+                        'title' => __('Justified', 'elementor'),
+                        'icon' => 'fa fa-align-justify',
+                    ],
+                ],
+                'prefix_class' => 'elementor%s-align-',
+                'default' => 'center',
+            ]
+        );
         $this->add_responsive_control(
             'textposition',
             [
@@ -1217,41 +1357,92 @@ class Custom_Slider_Widget extends Widget_Base
 
         );
 
+
         $this->add_group_control(
             \Elementor\Group_Control_Typography::get_type(),
             [
-                'name' => 'content_typography',
-                'label' => __('Text Typography', 'plugin-domain'),
+                'name' => 'label_typography',
+                'label' => __('Slider Labels Typography', 'plugin-domain'),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-                'selector' => '{{WRAPPER}} .text-item p',
+                'selector' => '{{WRAPPER}} .label-slider',
             ]
         );
-
         $this->add_responsive_control(
-            'align',
+            'label_position',
             [
-                'label' => __('Text Alignment', 'elementor'),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    'left'    => [
-                        'title' => __('Left', 'elementor'),
-                        'icon' => 'fa fa-align-left',
+                'label' => __('Slider Labels Position', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 5,
+                    'unit' => '%',
+                ],
+                'tablet_default' => [
+                    'unit' => '%',
+                ],
+                'mobile_default' => [
+                    'unit' => '%',
+                ],
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
                     ],
-                    'center' => [
-                        'title' => __('Center', 'elementor'),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'right' => [
-                        'title' => __('Right', 'elementor'),
-                        'icon' => 'fa fa-align-right',
-                    ],
-                    'justify' => [
-                        'title' => __('Justified', 'elementor'),
-                        'icon' => 'fa fa-align-justify',
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
                     ],
                 ],
-                'prefix_class' => 'elementor%s-align-',
-                'default' => '',
+
+                'selectors' => [
+                    '{{WRAPPER}} .label-slider' => 'bottom: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $this->add_control(
+            'needle_color',
+            [
+                'label' => __('Slider Needle Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .tick path' => 'fill: {{VALUE}} !important',
+                ],
+                'default' => 'black'
+            ]
+        );
+        $this->add_responsive_control(
+            'needle_size',
+            [
+                'label' => __('Slider Needle Size (%, px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 13,
+                    'unit' => '%',
+                ],
+                'tablet_default' => [
+                    'unit' => 'px',
+                ],
+                'mobile_default' => [
+                    'unit' => 'px',
+                ],
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .tick' => 'width: {{SIZE}}{{UNIT}} !important;',
+                ],
             ]
         );
         $this->end_controls_section();
@@ -1397,7 +1588,35 @@ class Custom_Slider_Widget extends Widget_Base
                                                 ?>"></div>
                 <div class="white"></div>
                 <div class="black"></div>
-                <div class="tick"></div>
+                <div class="tick"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" viewBox="1.22 256.04 666.45 153.42">
+
+                        <defs>
+                            <clipPath id="1">
+
+                                <path id="" clip-rule="evenodd" transform="matrix(1 0 0 1 0 0)" d="M500 0L500 500L500 500L0 500L0 500L0 0L0 0L500 0z" />
+                            </clipPath>
+                            <clipPath id="2">
+
+                                <path id="" clip-rule="evenodd" transform="matrix(1 0 0 1 0 0)" d="M-2841.5671 3536.1033L-2841.5671 3536.1033L-2841.5671 3536.1033L-2841.5671 207.84302L-2841.5671 207.84302L-2841.5671 207.84302L-2841.5671 207.84302L486.69327 207.84302L486.69327 207.84302L486.69327 207.84302L486.69327 207.84302L486.69327 3536.1033L486.69327 3536.1033L486.69327 3536.1033L486.69327 3536.1033L-2841.5671 3536.1033z" />
+                            </clipPath>
+                            <clipPath id="3">
+
+                                <path id="" clip-rule="evenodd" transform="matrix(1 0 0 1 0 0)" d="M-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 207.8435z" />
+                            </clipPath>
+                        </defs>
+
+                        <g transform="matrix(1.3333 0 0 1.3333 0 0)">
+                            <g clip-path="url(#1)">
+                                <g clip-path="url(#2)">
+                                    <g clip-path="url(#3)">
+                                        <path id="" transform="matrix(1 0 0 -1 0 500)" d="M64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568C 66.4299 278.03568 419.55603 259.833 440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578C 462.18353 256.70923 484.9469 253.07666 484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388C 484.9469 246.13596 463.6505 240.8616 440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973C 417.48035 237.85277 64.5936 222.86887 64.5936 222.86887z" stroke="#FFFFFF" stroke-width="6.6530285" fill="#464646" fill-rule="nonzero" />
+                                        <path id="" transform="matrix(1 0 0 -1 0 500)" d="M58.445984 208.72272C 35.418457 208.72272 16.736816 227.39949 16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695C 16.736816 273.4746 35.418457 292.15646 58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646C 81.499084 292.15646 100.17584 273.4799 100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223C 100.17584 227.40436 81.499084 208.72272 58.445984 208.72272z" stroke="#FFFFFF" stroke-width="6.6530285" fill="#464646" fill-rule="nonzero" />
+                                        <path id="" transform="matrix(1 0 0 -1 0 500)" d="M58.466278 236.6853C 62.17398 236.6853 65.33896 237.99612 67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797C 70.58267 243.2398 71.89368 246.40479 71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269C 71.89368 253.82059 70.58267 256.98557 67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072C 65.33896 262.22928 62.17398 263.54028 58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028C 54.758392 263.54028 51.5932 262.22928 48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072C 46.3497 256.98557 45.038666 253.82059 45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269C 45.038666 246.40479 46.3497 243.2398 48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797C 51.5932 237.99612 54.758392 236.6853 58.466278 236.6853" stroke="#FFFFFF" stroke-width="6.6530285" fill="#EEEEEE" fill-rule="evenodd" />
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg></div>
                 <?php
                 $count = 1;
                 if ($settings['list']) {
@@ -1420,6 +1639,8 @@ class Custom_Slider_Widget extends Widget_Base
 
             </div>
             <div class="cs-range-slider">
+                <p class="label-slider label-left"><?php echo $settings['label_left']; ?></p>
+                <p class="label-slider label-right"><?php echo $settings['label_right']; ?></p>
                 <input type="range" class="m" name="meter" min="0" max="100" value="0">
                 <span> </span>
             </div>
@@ -1515,7 +1736,35 @@ class Custom_Slider_Widget extends Widget_Base
                 "></div>
                 <div class="white"></div>
                 <div class="black"></div>
-                <div class="tick"></div>
+                <div class="tick"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" viewBox="1.22 256.04 666.45 153.42">
+
+                        <defs>
+                            <clipPath id="1">
+
+                                <path id="" clip-rule="evenodd" transform="matrix(1 0 0 1 0 0)" d="M500 0L500 500L500 500L0 500L0 500L0 0L0 0L500 0z" />
+                            </clipPath>
+                            <clipPath id="2">
+
+                                <path id="" clip-rule="evenodd" transform="matrix(1 0 0 1 0 0)" d="M-2841.5671 3536.1033L-2841.5671 3536.1033L-2841.5671 3536.1033L-2841.5671 207.84302L-2841.5671 207.84302L-2841.5671 207.84302L-2841.5671 207.84302L486.69327 207.84302L486.69327 207.84302L486.69327 207.84302L486.69327 207.84302L486.69327 3536.1033L486.69327 3536.1033L486.69327 3536.1033L486.69327 3536.1033L-2841.5671 3536.1033z" />
+                            </clipPath>
+                            <clipPath id="3">
+
+                                <path id="" clip-rule="evenodd" transform="matrix(1 0 0 1 0 0)" d="M-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L-2841.5676 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 207.8435L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L484.94672 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 3534.3567L-2841.5676 207.8435z" />
+                            </clipPath>
+                        </defs>
+
+                        <g transform="matrix(1.3333 0 0 1.3333 0 0)">
+                            <g clip-path="url(#1)">
+                                <g clip-path="url(#2)">
+                                    <g clip-path="url(#3)">
+                                        <path id="" transform="matrix(1 0 0 -1 0 500)" d="M64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L64.5936 222.86887L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568L66.4299 278.03568C 66.4299 278.03568 419.55603 259.833 440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578L440.56796 258.29578C 462.18353 256.70923 484.9469 253.07666 484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388L484.9469 249.60388C 484.9469 246.13596 463.6505 240.8616 440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973L440.56796 239.35973C 417.48035 237.85277 64.5936 222.86887 64.5936 222.86887z" stroke="#FFFFFF" stroke-width="6.6530285" fill="#464646" fill-rule="nonzero" />
+                                        <path id="" transform="matrix(1 0 0 -1 0 500)" d="M58.445984 208.72272C 35.418457 208.72272 16.736816 227.39949 16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695L16.736816 250.43695C 16.736816 273.4746 35.418457 292.15646 58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646L58.445984 292.15646C 81.499084 292.15646 100.17584 273.4799 100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223L100.17584 250.44223C 100.17584 227.40436 81.499084 208.72272 58.445984 208.72272z" stroke="#FFFFFF" stroke-width="6.6530285" fill="#464646" fill-rule="nonzero" />
+                                        <path id="" transform="matrix(1 0 0 -1 0 500)" d="M58.466278 236.6853C 62.17398 236.6853 65.33896 237.99612 67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797L67.960815 240.61797C 70.58267 243.2398 71.89368 246.40479 71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269L71.89368 250.11269C 71.89368 253.82059 70.58267 256.98557 67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072L67.960815 259.6072C 65.33896 262.22928 62.17398 263.54028 58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028L58.466278 263.54028C 54.758392 263.54028 51.5932 262.22928 48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072L48.971558 259.6072C 46.3497 256.98557 45.038666 253.82059 45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269L45.038666 250.11269C 45.038666 246.40479 46.3497 243.2398 48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797L48.971558 240.61797C 51.5932 237.99612 54.758392 236.6853 58.466278 236.6853" stroke="#FFFFFF" stroke-width="6.6530285" fill="#EEEEEE" fill-rule="evenodd" />
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg></div>
 
                 <# _.each( settings.list, function( item,index ) { #>
                     <div style="--i:{{{index}}}" class="chamber">
@@ -1530,6 +1779,8 @@ class Custom_Slider_Widget extends Widget_Base
 
             </div>
             <div class="cs-range-slider">
+                <p class="label-slider label-left">{{settings.label_left}}</p>
+                <p class="label-slider label-right">{{settings.label_right}}</p>
                 <input type="range" class="m" name="meter" min="0" max="100" value="0">
                 <span> </span>
             </div>

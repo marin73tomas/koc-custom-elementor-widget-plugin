@@ -10,10 +10,6 @@ function my_entrance_animations()
                'stretchUp' => 'Strentch Up',
           ],
 
-          'Whole Screen Slide Animations' => [
-               'slideRightToLeftScreenChild' => 'Slider Right to Left',
-               'slideLeftToRightScreenChild' => 'Slider Left to Right',
-          ],
           'From Sides' => [
                'inFromTop' => 'In From Top',
                'inFromBottom' =>  'In From Bottom',
