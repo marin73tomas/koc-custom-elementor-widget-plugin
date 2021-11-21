@@ -1152,10 +1152,10 @@ class Custom_Slider_Widget extends Widget_Base
                     'type' => \Elementor\Scheme_Color::get_type(),
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
-                'default' => 'white', 's
+                'default' => 'white', 
                 
-                electors' => [
-                    '{{WRAPPER}} .text-item p' => 'color: {{VALUE}}',
+                'selectors' => [
+                    '{{WRAPPER}} .text-item p, {{WRAPPER}} .label-slider' => 'color: {{VALUE}} !important',
                 ],
             ]
         );
@@ -1277,7 +1277,7 @@ class Custom_Slider_Widget extends Widget_Base
 
 
                 'selectors' => [
-                    '{{WRAPPER}} .cs-wrapper' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .cs-wrapper,{{WRAPPER}} .meter ,{{WRAPPER}} .white  ' => 'background-color: {{VALUE}} !important',
                 ],
 
             ]
@@ -1286,7 +1286,7 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_control(
             'empty_section_color',
             [
-                'label' => __('Empty Section Background Color', 'plugin-domain'),
+                'label' => __('Empty Section Speedometer Color', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => \Elementor\Scheme_Color::get_type(),
@@ -1301,7 +1301,7 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_control(
             'fill_section_color',
             [
-                'label' => __('Fill Section Background Color', 'plugin-domain'),
+                'label' => __('Filled Section Speedometer Color', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => \Elementor\Scheme_Color::get_type(),
