@@ -16,6 +16,5 @@ Author URI: https://github.com/marin73tomas/koc-custom-elementor-widget-plugin
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
-include_once("custom_animations.php");
 
-include_once("register_widget.php");
+include_once("includes/class-koc-widget-builder.php");

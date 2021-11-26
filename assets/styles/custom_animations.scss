@@ -1,0 +1,167 @@
+/* Stretch Left */
+@keyframes stretchLeft {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+/* Stretch Right */
+@keyframes stretchRight {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+/* Stretch Down */
+@keyframes stretchDown {
+	0% {
+		transform: scaleY(0);
+	}
+	100% {
+		transform: scaleY(1);
+	}
+}
+/* Stretch Up */
+@keyframes stretchUp {
+	0% {
+		transform: scaleY(0);
+	}
+	100% {
+		transform: scaleY(1);
+	}
+}
+/* Stretch Left */
+@keyframes stretchLeft {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+/* Stretch Right */
+@keyframes stretchRight {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+/* Stretch Down */
+@keyframes stretchDown {
+	0% {
+		transform: scaleY(0);
+	}
+	100% {
+		transform: scaleY(1);
+	}
+}
+/* Stretch Up */
+@keyframes stretchUp {
+	0% {
+		transform: scaleY(0);
+	}
+	100% {
+		transform: scaleY(1);
+	}
+}
+@keyframes animateLeftToRight {
+	0% {
+		left: -120vw;
+	}
+	100% {
+		left: 100%;
+	}
+}
+@keyframes animateRightToLeft {
+	0% {
+		right: -120vw;
+	}
+	100% {
+		right: 100%;
+	}
+}
+@keyframes wiggle {
+	0% {
+		transform: rotate(-4deg) translateY(5%);
+	}
+	100% {
+		transform: rotate(4deg) translateY(5%);
+	}
+}
+@keyframes inFromTop {
+	0% {
+		transform: translate(-50%, -100%);
+	}
+	100% {
+		transform: translate(-50%, 0%);
+	}
+}
+@keyframes inFromBottom {
+	0% {
+		transform: translate(-50%, -100%);
+	}
+	100% {
+		transform: translate(-50%, 0%);
+	}
+}
+@keyframes inFromLeft {
+	0% {
+		transform: translate(-100%, -50%);
+	}
+	100% {
+		transform: translate(0%, -50%);
+	}
+}
+@keyframes inFromRight {
+	0% {
+		transform: translate(100%, -50%);
+	}
+	100% {
+		transform: translate(-50%, -50%);
+	}
+}
+.stretchLeft {
+	animation-name: stretchLeft;
+	transform-origin: 100% 0%;
+	animation-name: stretchLeft;
+	transform-origin: 100% 0%;
+}
+.stretchRight {
+	animation-name: stretchRight;
+	transform-origin: 0% 0%;
+	animation-name: stretchRight;
+	transform-origin: 0% 0%;
+}
+.stretchDown {
+	animation-name: stretchDown;
+	transform-origin: 50% 0%;
+	animation-name: stretchDown;
+	transform-origin: 50% 0%;
+}
+.stretchUp {
+	animation-name: stretchUp;
+	transform-origin: 50% 100%;
+	animation-name: stretchUp;
+	transform-origin: 50% 100%;
+}
+.animationWiggle {
+	animation: wiggle 0.2s linear alternate;
+}
+.inFromTop {
+	animation: inFromTop 0.4s 1s linear forwards;
+}
+.inFromBottom {
+	animation: inFromBottom 0.4s 1s linear forwards;
+}
+.inFromLeft {
+	animation: inFromLeft 0.4s 1s linear forwards;
+}
+.inFromRight {
+	animation: inFromRight 0.4s 1s linear forwards;
+}
