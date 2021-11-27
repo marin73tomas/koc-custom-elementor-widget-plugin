@@ -164,7 +164,7 @@
     left: 50%;
     height: 50%;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: scaleX(-1) translate(50%, -50%) rotateZ(90deg);
     transition: 0.4s;
     position: absolute;
     background-color: black;
@@ -172,7 +172,7 @@
     min-height: 280px;
     min-width: 280px;
     background: linear-gradient(
-      0deg,
+      90deg,
       rgba(29, 216, 255, 1) 0%,
       rgba(4, 106, 255, 1) 50%,
       rgba(208, 212, 255, 1) 50%

@@ -1606,7 +1606,7 @@ class Custom_Slider_Widget extends Widget_Base
             <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>">
                 <div class=" gradient" style="<?php
                                                 echo "
-                 background: linear-gradient(0deg, rgba(29, 216, 255, 1) 0%, {$settings['fill_section_color']} 50%, {$settings['empty_section_color']} 50%);
+                 background: linear-gradient(-90deg, rgba(29, 216, 255, 1) 0%, {$settings['fill_section_color']} 50%, {$settings['empty_section_color']} 50%);
                 "
 
 
@@ -1757,7 +1757,7 @@ class Custom_Slider_Widget extends Widget_Base
 
             <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>">
                 <div class=" gradient" style="
-                 background: linear-gradient(0deg, rgba(29, 216, 255, 1) 0%, {{{settings.fill_section_color}}} 50%, {{{settings.empty_section_color}}} 50%);
+                 background: linear-gradient(-90deg, rgba(29, 216, 255, 1) 0%, {{{settings.fill_section_color}}} 50%, {{{settings.empty_section_color}}} 50%);
                 "></div>
                 <div class="white"></div>
                 <div class="black"></div>

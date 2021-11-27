@@ -92,7 +92,7 @@ export async function setUpCustomSlider(cont) {
 
       if (!stylePrint) {
         const styling = `#${cont[0].id} .chamber { 
-      transform: translate(-50%, -50%)rotateZ(calc(var(--i)*-${
+      transform: translate(-50%, -50%) rotateZ(calc(var(--i)*-${
         180 / chamber.length
       }deg));
     }
@@ -163,8 +163,10 @@ export async function setUpCustomSlider(cont) {
         texts[currentStep - 1].style.display = "block";
         texts[currentStep - 1].style.opacity = 1;
       }
+      let deg = currentStep + 1 == 1 ? 90 : 90 - (180 / nSteps) * currentStep;
+
       gradient.style.transform =
-        "translate(-50%,-50%)rotateZ(" + (180 / 100) * m.value + "deg)";
+        "scaleX(-1) translate(50%,-50%)rotateZ(" + deg + "deg)";
 
       // 2. apply our fill to the input
       helpers.applyFill(m, trackColor);

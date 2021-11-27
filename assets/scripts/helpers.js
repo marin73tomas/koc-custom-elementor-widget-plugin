@@ -1,6 +1,6 @@
 
 export function applyFill(slider, trackColor) {
-  console.log(trackColor);
+  //console.log(trackColor);
   // Let's turn our value into a percentage to figure out how far it is in between the min and max of our input
   const settings = {
     fill: "gray",
