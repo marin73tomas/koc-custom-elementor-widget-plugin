@@ -25,7 +25,7 @@ if (!class_exists('KOC_Widget_Builder')) {
                     require_once('widget.php');
                     \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \Elementor\Custom_Slider_Widget());
                } else {
-                    add_action('admin_notices', 'widget_error_notice');
+                    add_action('admin_notices', array($this, 'widget_error_notice'));
                }
           }
      }

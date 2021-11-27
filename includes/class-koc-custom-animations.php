@@ -26,4 +26,5 @@ if (!class_exists('KOC_Custom_Animations')) {
                );
           }
      }
+     new KOC_Custom_Animations();
 }

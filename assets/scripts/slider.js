@@ -6,7 +6,17 @@ export async function setUpCustomSlider(cont) {
 
   if (container) {
     const section = container.closest("section");
-
+    const hidePlaceHolders = document.createElement("style");
+    //hide weird spacing bug below the slider in elementor editor mode
+    hidePlaceHolders.innerHTML = `
+    .${[...section.classList].find(
+      (c) =>
+        c != "elementor-element-edit-mode" && c.includes("elementor-element-")
+    )} .placeholder-height{
+      display: none !important;
+    }
+    `;
+    document.body.appendChild(hidePlaceHolders);
     if (!window.last) window.last = 0;
 
     if (section) {

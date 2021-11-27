@@ -8,8 +8,9 @@ class Custom_Slider_Widget extends Widget_Base
     public function __construct($data = [], $args = null)
     {
         parent::__construct($data, $args);
-        wp_register_script('script-handle', plugin_dir_url(__FILE__) . 'assets/scripts/class-widget.js', ['elementor-frontend'], '25.0.0', true);
-        wp_register_style('style-handle', plugin_dir_url(__FILE__) . 'assets/styles/bundle.min.css');
+        
+        wp_register_script('script-handle', KOC_CW_PATH . 'assets/scripts/bundle.min.js', ['elementor-frontend'], '25.0.0', true);
+        wp_register_style('style-handle', KOC_CW_PATH . 'assets/styles/bundle.min.css');
     }
     private function gen_uid($length = 10)
     {
@@ -947,7 +948,7 @@ class Custom_Slider_Widget extends Widget_Base
             [
                 'label' => __('Text', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::WYSIWYG,
-                'default' => __(lorem(1, 1), 'plugin-domain'),
+                'default' => __(' ', 'plugin-domain'),
                 'show_label' => false,
             ]
         );
@@ -1276,9 +1277,40 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
         $this->add_responsive_control(
-            'slider_track_size',
+            'slider_track_height',
             [
-                'label' => __('Slider Track Size (%,px)', 'elementor'),
+                'label' => __('Slider Track Height (%,px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 15,
+                    'unit' => 'px',
+                ],
+                'tablet_default' => [
+                    'unit' => 'px',
+                ],
+                'mobile_default' => [
+                    'unit' => 'px',
+                ],
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 0,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .cs-range-slider input' => 'height: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'slider_track_width',
+            [
+                'label' => __('Slider Track Width (%,px)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 100,
