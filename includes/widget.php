@@ -8,7 +8,7 @@ class Custom_Slider_Widget extends Widget_Base
     public function __construct($data = [], $args = null)
     {
         parent::__construct($data, $args);
-        
+
         wp_register_script('script-handle', KOC_CW_PATH . 'assets/scripts/bundle.min.js', ['elementor-frontend'], '25.0.0', true);
         wp_register_style('style-handle', KOC_CW_PATH . 'assets/styles/bundle.min.css');
     }
@@ -1038,7 +1038,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gradient' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1102,7 +1102,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gauge_main, .gauge_main .white, .gauge_main .black, .gauge_main .tick, .gauge_main .gradient, .gauge_main .chamber, .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .gauge_main, .gauge_main .white, .gauge_main .black, .gauge_main .tick, .gauge_main .gradient, .gauge_main .gradient-filled, .gauge_main .chamber, .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1263,15 +1263,29 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
         $this->add_control(
-            'fill_section_color',
+            'fill_left_color',
             [
-                'label' => __('Filled Section Speedometer Color', 'plugin-domain'),
+                'label' => __('Section Speedometer Right Color', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => \Elementor\Scheme_Color::get_type(),
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'blue',
+
+
+            ]
+        );
+        $this->add_control(
+            'fill_right_color',
+            [
+                'label' => __('Section Speedometer Left Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'default' => 'green',
 
 
             ]
@@ -1604,13 +1618,17 @@ class Custom_Slider_Widget extends Widget_Base
 
             </div>
             <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>">
+                <div class=" gradient-filled" style="<?php
+
+                                                        echo
+                                                        "background: linear-gradient(90deg, {$settings['fill_left_color']}  0%, {$settings['fill_right_color']} 100%, black 0%);
+                 ";
+                                                        ?>"></div>
                 <div class=" gradient" style="<?php
                                                 echo "
-                 background: linear-gradient(-90deg, rgba(29, 216, 255, 1) 0%, {$settings['fill_section_color']} 50%, {$settings['empty_section_color']} 50%);
-                "
+                 background: rgba(0, 0, 0, 0) linear-gradient(0deg, {$settings['empty_section_color']} 0%, {$settings['empty_section_color']} 50%, transparent 50%) repeat scroll 0% 0%;
+                "; ?>"></div>
 
-
-                                                ?>"></div>
                 <div class="white"></div>
                 <div class="black"></div>
                 <div class="tick"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" viewBox="1.22 256.04 666.45 153.42">
@@ -1756,8 +1774,11 @@ class Custom_Slider_Widget extends Widget_Base
             </div>
 
             <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>">
+                <div class=" gradient-filled" style="
+                 background: linear-gradient(90deg, {{{settings.fill_left_color}}} 0%, {{{settings.fill_right_color}}} 100%, black 0%);
+                "></div>
                 <div class=" gradient" style="
-                 background: linear-gradient(-90deg, rgba(29, 216, 255, 1) 0%, {{{settings.fill_section_color}}} 50%, {{{settings.empty_section_color}}} 50%);
+                 background: rgba(0, 0, 0, 0) linear-gradient(0deg, {{{settings.empty_section_color}}} 0%, {{{settings.empty_section_color}}} 50%, transparent 50%) repeat scroll 0% 0%;
                 "></div>
                 <div class="white"></div>
                 <div class="black"></div>

@@ -7,7 +7,7 @@ export async function setUpCustomSlider(cont) {
   if (container) {
     const section = container.closest("section");
     const hidePlaceHolders = document.createElement("style");
-    //hide weird spacing bug below the slider in elementor editor mode
+    //hide weird spacing bug below the slider
     hidePlaceHolders.innerHTML = `
     .${[...section.classList].find(
       (c) =>
@@ -92,7 +92,7 @@ export async function setUpCustomSlider(cont) {
 
       if (!stylePrint) {
         const styling = `#${cont[0].id} .chamber { 
-      transform: translate(-50%, -50%) rotateZ(calc(var(--i)*-${
+      transform: translate(-50%, -50%)rotateZ(calc(var(--i)*-${
         180 / chamber.length
       }deg));
     }
@@ -130,16 +130,16 @@ export async function setUpCustomSlider(cont) {
         (180 / 100) * m.value +
         "deg)";
 
+      let stepVal = stepsNumbers
+        .map(
+          (e, idx) =>
+            helpers.round(Number(e), 2) == helpers.round(Number(m.value), 2) &&
+            idx
+        )
+        .filter((e) => e);
+
       let currentStep =
-        mValue.innerHTML == nSteps - 1
-          ? nSteps
-          : stepsNumbers.indexOf(
-              stepsNumbers.find(
-                (e) =>
-                  helpers.round(Number(e), 2) ==
-                  helpers.round(Number(m.value), 2)
-              )
-            );
+        (stepVal.length >= 1 && stepVal[0]) || (m.value == 100 ? nSteps : 0);
 
       mValue.innerHTML = currentStep;
       window.last = currentStep;
@@ -163,10 +163,9 @@ export async function setUpCustomSlider(cont) {
         texts[currentStep - 1].style.display = "block";
         texts[currentStep - 1].style.opacity = 1;
       }
-      let deg = currentStep + 1 == 1 ? 90 : 90 - (180 / nSteps) * currentStep;
 
-      gradient.style.transform =
-        "scaleX(-1) translate(50%,-50%)rotateZ(" + deg + "deg)";
+      var gVal = 180 - (180 / nSteps) * currentStep * -1;
+      gradient.style.transform = "translate(-50%,-50%)rotateZ(" + gVal + "deg)";
 
       // 2. apply our fill to the input
       helpers.applyFill(m, trackColor);
