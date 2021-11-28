@@ -1038,7 +1038,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled, {{WRAPPER}} .chamber-container ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1102,7 +1102,14 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gauge_main, .gauge_main .white, .gauge_main .black, .gauge_main .tick, .gauge_main .gradient, .gauge_main .gradient-filled, .gauge_main .chamber, .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .gauge_main, 
+                    {{WRAPPER}} .gauge_main .white, 
+                    {{WRAPPER}} .gauge_main .black,
+                     {{WRAPPER}} .gauge_main .tick, 
+                     {{WRAPPER}} .gauge_main .gradient, 
+                     {{WRAPPER}} .gauge_main .gradient-filled, 
+                     {{WRAPPER}} .gauge_main .chamber, 
+                     {{WRAPPER}} .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1660,21 +1667,25 @@ class Custom_Slider_Widget extends Widget_Base
                             </g>
                         </g>
                     </svg></div>
-                <?php
-                $count = 1;
-                if ($settings['list']) {
-                    foreach ($settings['list'] as $item) {
-                ?>
-                        <div style="<?php echo "--i:$count"; ?>" class="chamber">
+                <div class="chamber-container" style="top: <?php
+                                                            echo "calc(" . $settings['speedometerpos']['size'] . $settings['speedometerpos']['unit'] .  " - 19%)";
+                                                            ?>; ">
+                    <?php
 
-                        </div>
-                <?php
-                        $count++;
+                    $count = 1;
+                    if ($settings['list']) {
+                        foreach ($settings['list'] as $item) {
+                    ?>
+                            <div style="<?php echo "--i:$count"; ?>" class="chamber">
+
+                            </div>
+                    <?php
+                            $count++;
+                        }
                     }
-                }
 
-                ?>
-
+                    ?>
+                </div>
 
                 <?php
                 ?>
@@ -1811,16 +1822,16 @@ class Custom_Slider_Widget extends Widget_Base
                             </g>
                         </g>
                     </svg></div>
+                <div class="chamber-container" style="top: calc({{{settings.speedometerpos.size}}}{{{settings.speedometerpos.unit}}} - 19%)  ">
+                    <# _.each( settings.list, function( item,index ) { #>
+                        <div style="--i:{{{index}}}" class="chamber">
+                        </div>
 
-                <# _.each( settings.list, function( item,index ) { #>
-                    <div style="--i:{{{index}}}" class="chamber">
-                    </div>
 
 
-
-                    <# }); #>
-
-                        <div class="meter"></div>
+                        <# }); #>
+                </div>
+                <div class="meter"></div>
 
 
             </div>
