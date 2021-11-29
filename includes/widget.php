@@ -1038,7 +1038,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled, {{WRAPPER}} .chamber-container ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled, {{WRAPPER}} .gauge_main ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1113,7 +1113,22 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
             ]
         );
+        $this->add_control(
+            'gap_color',
+            [
+                'label' => __('Gap Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'default' => 'purple',
 
+                'selectors' => [
+                    '{{WRAPPER}} .chamber' => 'background: {{VALUE}} !important',
+                ],
+            ]
+        );
         $this->add_control(
             'text_color',
             [
@@ -1123,7 +1138,7 @@ class Custom_Slider_Widget extends Widget_Base
                     'type' => \Elementor\Scheme_Color::get_type(),
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
-                'default' => 'white',
+                'default' => 'black',
 
                 'selectors' => [
                     '{{WRAPPER}} .text-item p, {{WRAPPER}} .label-slider' => 'color: {{VALUE}} !important',
@@ -1624,7 +1639,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ?>
 
             </div>
-            <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>">
+            <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>" style='position:relative'>
                 <div class=" gradient-filled" style="<?php
 
                                                         echo
@@ -1667,25 +1682,22 @@ class Custom_Slider_Widget extends Widget_Base
                             </g>
                         </g>
                     </svg></div>
-                <div class="chamber-container" style="top: <?php
-                                                            echo "calc(" . $settings['speedometerpos']['size'] . $settings['speedometerpos']['unit'] .  " - 19%)";
-                                                            ?>; ">
-                    <?php
 
-                    $count = 1;
-                    if ($settings['list']) {
-                        foreach ($settings['list'] as $item) {
-                    ?>
-                            <div style="<?php echo "--i:$count"; ?>" class="chamber">
+                <?php
 
-                            </div>
-                    <?php
-                            $count++;
-                        }
+                $count = 1;
+                if ($settings['list']) {
+                    foreach ($settings['list'] as $item) {
+                ?>
+                        <div style="<?php echo "--i:$count"; ?>; width:99.5% !important" class="chamber">
+
+                        </div>
+                <?php
+                        $count++;
                     }
+                }
 
-                    ?>
-                </div>
+                ?>
 
                 <?php
                 ?>
@@ -1784,7 +1796,7 @@ class Custom_Slider_Widget extends Widget_Base
                     <# }); #>
             </div>
 
-            <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>">
+            <div class="gauge_main custom-slider-container" id="<?php echo $this->gen_uid(); ?>" style='position:relative;'>
                 <div class=" gradient-filled" style="
                  background: linear-gradient(90deg, {{{settings.fill_left_color}}} 0%, {{{settings.fill_right_color}}} 100%, black 0%);
                 "></div>
@@ -1822,16 +1834,16 @@ class Custom_Slider_Widget extends Widget_Base
                             </g>
                         </g>
                     </svg></div>
-                <div class="chamber-container" style="top: calc({{{settings.speedometerpos.size}}}{{{settings.speedometerpos.unit}}} - 19%)  ">
-                    <# _.each( settings.list, function( item,index ) { #>
-                        <div style="--i:{{{index}}}" class="chamber">
-                        </div>
+
+                <# _.each( settings.list, function( item,index ) { #>
+                    <div style="--i:{{{index}}}; width:99.5% !important" class=" chamber">
+                    </div>
 
 
 
-                        <# }); #>
-                </div>
-                <div class="meter"></div>
+                    <# }); #>
+
+                        <div class="meter"></div>
 
 
             </div>

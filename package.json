@@ -4,7 +4,7 @@
   "description": "koc custom slider widget for elementor",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build-js && npm run",
+    "build": "npm run build-js && npm run build-css",
     "build-js": "webpack --progress",
     "build-css": "node-sass ./assets/styles/bundle.scss ./assets/styles/bundle.min.css --output-style compressed"
   },

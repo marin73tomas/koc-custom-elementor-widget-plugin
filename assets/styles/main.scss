@@ -168,7 +168,7 @@
     transition: 0.4s;
     background-color: black;
     border-radius: 50%;
-   
+
     background: linear-gradient(
       0deg,
       rgba(29, 216, 255, 1) 0%,
@@ -187,20 +187,8 @@
     transition: 0.4s;
     background-color: black;
     border-radius: 50%;
-  
+
     z-index: 1;
-  }
-  .chamber-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 50%;
-    width: 50%;
-    transform: translate(-50%, -50%);
-    transition: 0.4s;
-    border-radius: 50%;
-    z-index: 20 !important;
-    overflow: hidden;
   }
   .chamber {
     position: absolute;
