@@ -44,6 +44,9 @@ export async function setUpCustomSlider(cont) {
       section.appendChild(placeHolder);
     }
     const wrapper = container.parentElement;
+    const needlePosition = wrapper.querySelector(".needle_position")?.innerHTML;
+
+
 
     const bgColor = wrapper.querySelector(".cs-bg")?.innerHTML || "white";
     const trackColor = wrapper.querySelector(".track-color")?.innerHTML;
@@ -131,7 +134,7 @@ export async function setUpCustomSlider(cont) {
         "translate(-50%,-70%)scaleX(-1)rotateZ(-" +
         (180 / 100) * m.value +
         "deg)";
-
+      
       let stepVal = stepsNumbers
         .map(
           (e, idx) =>
