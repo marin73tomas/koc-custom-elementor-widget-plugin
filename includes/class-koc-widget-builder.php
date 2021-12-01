@@ -9,6 +9,7 @@ if (!class_exists('KOC_Widget_Builder')) {
           public function __construct()
           {
                add_action('elementor/widgets/widgets_registered', array($this, 'widgets_registered'));
+               
           }
           function widget_error_notice()
           {

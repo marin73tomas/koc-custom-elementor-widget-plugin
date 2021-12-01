@@ -80,17 +80,6 @@ class Custom_Slider_Widget extends Widget_Base
         $repeater = new \Elementor\Repeater();
 
 
-        $repeater->add_control(
-            'list_color',
-            [
-                'label' => __('Slice Color', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}}' => 'color: {{VALUE}}'
-                ],
-                'default' => "#F4F4F4"
-            ]
-        );
         $repeater->start_controls_tabs('tabs_medias');
 
         $repeater->start_controls_tab(
@@ -267,6 +256,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Media File Animation', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::ANIMATION,
                 'prefix_class' => 'animated ',
+                'render_type' => 'template',
             ]
         );
 
@@ -291,6 +281,18 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Animation Delay In Seconds', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => __('4', 'plugin-domain'),
+                'render_type' => 'template',
+            ]
+        );
+        $repeater->add_control(
+            'animation_repeat_times_1',
+            [
+                'label' => __('Repeat animation No. times (0 infinite)', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 0,
+                'max' => 1000,
+                'step' => 1,
+                'default' => 0,
             ]
         );
         $repeater->end_controls_tab();
@@ -474,6 +476,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Media File Animation', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::ANIMATION,
                 'prefix_class' => 'animated ',
+                'render_type' => 'template',
             ]
         );
 
@@ -499,9 +502,20 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Animation Delay In Seconds', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => __('4', 'plugin-domain'),
+                'render_type' => 'template',
             ]
         );
-
+        $repeater->add_control(
+            'animation_repeat_times_2',
+            [
+                'label' => __('Repeat animation No. times (0 infinite)', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 0,
+                'max' => 1000,
+                'step' => 1,
+                'default' => 0,
+            ]
+        );
 
 
         $repeater->end_controls_tab();
@@ -691,6 +705,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Media File Animation', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::ANIMATION,
                 'prefix_class' => 'animated ',
+                'render_type' => 'template',
             ]
         );
 
@@ -716,9 +731,20 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Animation Delay In Seconds', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => __('4', 'plugin-domain'),
+                'render_type' => 'template',
             ]
         );
-
+        $repeater->add_control(
+            'animation_repeat_times_3',
+            [
+                'label' => __('Repeat animation No. times (0 infinite)', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 0,
+                'max' => 1000,
+                'step' => 1,
+                'default' => 0,
+            ]
+        );
 
         $repeater->end_controls_tab();
 
@@ -899,6 +925,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Media File Animation', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::ANIMATION,
                 'prefix_class' => 'animated ',
+                'render_type' => 'template',
             ]
         );
 
@@ -924,6 +951,18 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Animation Delay In Seconds', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => __('4', 'plugin-domain'),
+                'render_type' => 'template',
+            ]
+        );
+        $repeater->add_control(
+            'animation_repeat_times_4',
+            [
+                'label' => __('Repeat animation No. times (0 infinite)', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 0,
+                'max' => 1000,
+                'step' => 1,
+                'default' => 0,
             ]
         );
         $repeater->end_controls_tab();
@@ -1038,7 +1077,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled, {{WRAPPER}} .gauge_main ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled, {{WRAPPER}} .gauge_main, {{WRAPPER}} .gauge-hidden ' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1103,13 +1142,43 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .gauge_main, 
-                    {{WRAPPER}} .gauge_main .white, 
                     {{WRAPPER}} .gauge_main .black,
                      {{WRAPPER}} .gauge_main .tick, 
-                     {{WRAPPER}} .gauge_main .gradient, 
-                     {{WRAPPER}} .gauge_main .gradient-filled, 
-                     {{WRAPPER}} .gauge_main .chamber, 
+                     {{WRAPPER}} .gauge-hidden,
                      {{WRAPPER}} .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'gap_size',
+            [
+                'label' => __('Gap SIze', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 4,
+                    'unit' => 'px',
+                ],
+                'size_units' => ['%', 'px', 'em', 'rem'],
+                'range' => [
+                    'em' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 300,
+                    ],
+                    'rem' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .chamber' => 'height: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1260,10 +1329,10 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'white',
-
-
                 'selectors' => [
-                    '{{WRAPPER}} .cs-wrapper,{{WRAPPER}} .meter ,{{WRAPPER}} .white  ' => 'background-color: {{VALUE}} !important',
+                    '{{WRAPPER}} .cs-wrapper,{{WRAPPER}} .meter , {{WRAPPER}} .white, 
+                    {{WRAPPER}} .gauge-hidden, {{WRAPPER}} .gauge_main, {{WRAPPER}} .gauge_main::after
+                    ' => 'background-color: {{VALUE}} !important; border: 2px solid {{VALUE}} !important',
                 ],
 
             ]
@@ -1434,7 +1503,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Slider Labels Position', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 5,
+                    'size' => 100,
                     'unit' => '%',
                 ],
                 'tablet_default' => [
@@ -1539,7 +1608,7 @@ class Custom_Slider_Widget extends Widget_Base
                             display:none;
                             opacity: <?php echo $item['opacity']; ?>;
                              <?php if ($item['repeat_animation1']) { ?>
-                        animation-iteration-count: infinite !important;
+                        animation-iteration-count: <?php echo $item['animation_repeat_times_1'] ? $item['animation_repeat_times_1'] : 'infinite'; ?> !important;
                         <?php } ?>
                         animation-duration: <?php echo $item['animation_delay1'] ?> !important;
                             " class="<?php echo  $item['entrance_animation1'];
@@ -1561,7 +1630,7 @@ class Custom_Slider_Widget extends Widget_Base
                             display:none;
                             opacity: <?php echo $item['opacity']; ?>;
                              <?php if ($item['repeat_animation2']) { ?>
-                        animation-iteration-count: infinite !important;
+                        animation-iteration-count: <?php echo $item['animation_repeat_times_2'] ? $item['animation_repeat_times_2'] : 'infinite'; ?> !important;
                         <?php } ?>
                         animation-duration: <?php echo $item['animation_delay2'] ?> !important;
                             " class="<?php echo  $item['entrance_animation2'];
@@ -1581,7 +1650,7 @@ class Custom_Slider_Widget extends Widget_Base
                             display:none;
                             opacity: <?php echo $item['opacity']; ?>;
                              <?php if ($item['repeat_animation3']) { ?>
-                        animation-iteration-count: infinite !important;
+                        animation-iteration-count: <?php echo $item['animation_repeat_times_3'] ? $item['animation_repeat_times_3'] : 'infinite'; ?> !important;
                         <?php } ?>
                         animation-duration: <?php echo $item['animation_delay3'] ?> !important;
                             " class="<?php echo  $item['entrance_animation3'];
@@ -1601,7 +1670,7 @@ class Custom_Slider_Widget extends Widget_Base
                             display:none;
                             opacity: <?php echo $item['opacity']; ?>;
                              <?php if ($item['repeat_animation4']) { ?>
-                        animation-iteration-count: infinite !important;
+                        animation-iteration-count: <?php echo $item['animation_repeat_times_4'] ? $item['animation_repeat_times_4'] : 'infinite';  ?> !important;
                         <?php } ?>
                         animation-duration: <?php echo $item['animation_delay4'] ?> !important;
 
@@ -1689,7 +1758,7 @@ class Custom_Slider_Widget extends Widget_Base
                 if ($settings['list']) {
                     foreach ($settings['list'] as $item) {
                 ?>
-                        <div style="<?php echo "--i:$count"; ?>; width:99.5% !important" class="chamber">
+                        <div style="<?php echo "--i:$count"; ?>; width:250% !important" class="chamber">
 
                         </div>
                 <?php
@@ -1704,6 +1773,9 @@ class Custom_Slider_Widget extends Widget_Base
                 <div class="meter"></div>
 
             </div>
+            <div class="gauge-hidden" >
+
+            </div>
             <div class="cs-range-slider">
                 <p class="label-slider label-left"><?php echo $settings['label_left']; ?></p>
                 <p class="label-slider label-right"><?php echo $settings['label_right']; ?></p>
@@ -1715,6 +1787,7 @@ class Custom_Slider_Widget extends Widget_Base
                 <div class="track-color"><?php echo $settings["slider_track_color"]; ?></div>
                 <div class="thumb-color"><?php echo $settings["slider_thumb_color"]; ?></div>
                 <div class="thumb-hover-color"><?php echo $settings["slider_thumb_hover_color"]; ?></div>
+                <div class="gap-size"><?php echo $settings["gap_size"]; ?></div>
             </div>
         </div>
 
@@ -1739,7 +1812,16 @@ class Custom_Slider_Widget extends Widget_Base
                         display:none;
                         opacity: {{{item.opacity1}}};
                          <# if (item.repeat_animation1) { #>
-                        animation-iteration-count: infinite !important;
+                        animation-iteration-count: <# 
+                        if (item.animation_repeat_times_1){
+                            #> {{{item.animation_repeat_times_1}}} <#
+                        }
+                        else {
+                                #> infinite  <#
+                        }
+                        
+                        #> !important;
+
                         <# } #>
                         animation-duration: {{{item.animation_delay1}}} !important;
                         " class="{{ item.entrance_animation1 }} repeat-{{ item.repeat_animation1 }}" loading=" lazy" src="{{{item.media1.url}}}" alt="{{{item.media1.id}}}">
@@ -1752,7 +1834,15 @@ class Custom_Slider_Widget extends Widget_Base
                         display:none;
                         opacity: {{{item.opacity2}}};
                          <# if (item.repeat_animation2) { #>
-                        animation-iteration-count: infinite !important;
+                         animation-iteration-count: <# 
+                        if (item.animation_repeat_times_2){
+                            #> {{{item.animation_repeat_times_2}}} <#
+                        }
+                        else {
+                                #> infinite  <#
+                        }
+                        
+                        #> !important;
                         <# } #>
                         animation-duration: {{{item.animation_delay2}}} !important;
                         " class="{{ item.entrance_animation2 }} repeat-{{ item.repeat_animation2 }}" loading=" lazy" src="{{{item.media2.url}}}" alt="{{{item.media2.id}}}">
@@ -1765,7 +1855,15 @@ class Custom_Slider_Widget extends Widget_Base
                         display:none;
                         opacity: {{{item.opacity3}}};
                          <# if (item.repeat_animation3) { #>
-                        animation-iteration-count: infinite !important;
+                         animation-iteration-count: <# 
+                        if (item.animation_repeat_times_3){
+                            #> {{{item.animation_repeat_times_3}}} <#
+                        }
+                        else {
+                                #> infinite  <#
+                        }
+                        
+                        #> !important;
                         <# } #>
                         animation-duration: {{{item.animation_delay3}}} !important;
                         " class="{{ item.entrance_animation3 }} repeat-{{ item.repeat_animation3 }}" loading=" lazy" src="{{{item.media3.url}}}" alt="{{{item.media3.id}}}">
@@ -1778,7 +1876,15 @@ class Custom_Slider_Widget extends Widget_Base
                         display:none;
                         opacity: {{{item.opacity4}}};
                         <# if (item.repeat_animation4) { #>
-                        animation-iteration-count: infinite !important;
+                         animation-iteration-count: <# 
+                        if (item.animation_repeat_times_4){
+                            #> {{{item.animation_repeat_times_4}}} <#
+                        }
+                        else {
+                                #> infinite  <#
+                        }
+                        
+                        #> !important;
                         <# } #>
                         animation-duration: {{{item.animation_delay4}}} !important;
                         " class="{{ item.entrance_animation4 }} " loading=" lazy" src="{{{item.media4.url}}}" alt="{{{item.media4.id}}}">
@@ -1847,7 +1953,10 @@ class Custom_Slider_Widget extends Widget_Base
 
 
             </div>
-            <div class="cs-range-slider">
+            <div class="gauge-hidden" >
+
+            </div>
+            <div class=" cs-range-slider">
                 <p class="label-slider label-left">{{settings.label_left}}</p>
                 <p class="label-slider label-right">{{settings.label_right}}</p>
                 <input type="range" class="m" name="meter" min="0" max="100" value="0">
@@ -1858,6 +1967,7 @@ class Custom_Slider_Widget extends Widget_Base
                 <div class="track-color">{{settings.slider_track_color}}</div>
                 <div class="thumb-color">{{settings.slider_thumb_color}}</div>
                 <div class="thumb-hover-color">{{settings.slider_thumb_hover_color}}</div>
+                <div class="gap-size">{{settings.gap_size}}</div>
             </div>
         </div>
 

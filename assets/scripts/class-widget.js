@@ -32,4 +32,5 @@ jQuery(window).on("elementor/frontend/init", () => {
     "frontend/element_ready/customslider.default",
     addHandler
   );
+
 });

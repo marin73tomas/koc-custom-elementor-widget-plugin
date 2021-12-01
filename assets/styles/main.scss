@@ -99,6 +99,17 @@
     }
   }
 }
+.gauge-hidden {
+  position: absolute;
+  display: block;
+  left: 50%;
+  transform: translate(-50%, -0.3%) !important;
+  transition: 0.4s;
+  border: 2px solid white;
+  overflow: hidden;
+  z-index: 100;
+  background-color: white;
+}
 .gauge_main {
   position: absolute;
   top: 50%;
@@ -107,13 +118,26 @@
   width: 50%;
   transform: translate(-50%, -50%);
   transition: 0.4s;
+  border-radius: 50% !important;
+  border: 2px solid white;
+  overflow: hidden;
+  &:after {
+    content: "";
+    width: 100%;
+    height: 50%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+  }
   .white {
     position: absolute;
-    top: 50%;
+    top: 67.7% !important;
     left: 50%;
     height: 50%;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -70%);
     transition: 0.4s;
     position: absolute;
     background-color: black;
@@ -126,7 +150,7 @@
     left: 50%;
     height: 50%;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -70%);
     transition: 0.4s;
     position: absolute;
     background-color: black;
@@ -144,7 +168,7 @@
     left: 50%;
     height: 50%;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -70%);
     transition: 0.4s;
     z-index: 110;
     transform-origin: 50%;
@@ -160,11 +184,11 @@
   }
   .gradient {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     height: 50%;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -70%);
     transition: 0.4s;
     background-color: black;
     border-radius: 50%;
@@ -179,20 +203,29 @@
   }
   .gradient-filled {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     height: 50%;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -70%);
     transition: 0.4s;
     background-color: black;
     border-radius: 50%;
 
     z-index: 1;
   }
-  .chamber {
+  .img-container {
+    z-index: 101 !important;
     position: absolute;
     top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    height: 100%;
+}
+  .chamber {
+    position: absolute;
+    top: 50.2%;
     left: 50%;
     height: 50%;
     width: 50%;
@@ -200,7 +233,6 @@
     transition: 0.4s;
     left: 50%;
     width: 150%;
-    height: 5px !important;
     transform-origin: 50% !important;
     z-index: 20 !important;
     margin-top: -4px;
@@ -209,6 +241,9 @@
     background-repeat: no-repeat;
     height: 25px;
     background-position: center;
+    @media (max-width: 600px){
+      top: 51%;
+    }
   }
   .meter {
     position: absolute;

@@ -16,7 +16,10 @@ export async function setUpCustomSlider(cont) {
       display: none !important;
     }
     `;
+    //add spacing relative to gap width to after element
+    
     document.body.appendChild(hidePlaceHolders);
+
     if (!window.last) window.last = 0;
 
     if (section) {
@@ -84,7 +87,6 @@ export async function setUpCustomSlider(cont) {
     white.style.height = "9vw";
     white.style.width = "9vw";
     tick.style.width = "9vw";
-    let animationInterval = 0;
     let stylePrint = false;
     chamber.forEach((e, idx) => {
       if (idx == 0) e.classList.add("active");
@@ -92,7 +94,7 @@ export async function setUpCustomSlider(cont) {
 
       if (!stylePrint) {
         const styling = `#${cont[0].id} .chamber { 
-      transform: translate(-50%, -50%)rotateZ(calc(var(--i)*-${
+      transform: translate(-50%, -70%)rotateZ(calc(var(--i)*-${
         180 / chamber.length
       }deg));
     }
@@ -126,7 +128,7 @@ export async function setUpCustomSlider(cont) {
       );
 
       black.style.transform = tick.style.transform =
-        "translate(-50%,-50%)scaleX(-1)rotateZ(-" +
+        "translate(-50%,-70%)scaleX(-1)rotateZ(-" +
         (180 / 100) * m.value +
         "deg)";
 
@@ -139,7 +141,8 @@ export async function setUpCustomSlider(cont) {
         .filter((e) => e);
 
       let currentStep =
-        (stepVal.length >= 1 && stepVal[0]) || (m.value == 100 ? nSteps : 0);
+        (stepVal.length >= 1 && stepVal[0]) ||
+        (Math.ceil(helpers.round(Number(m.value), 2)) == 100 ? nSteps : 0);
 
       mValue.innerHTML = currentStep;
       window.last = currentStep;
@@ -165,7 +168,7 @@ export async function setUpCustomSlider(cont) {
       }
 
       var gVal = 180 - (180 / nSteps) * currentStep * -1;
-      gradient.style.transform = "translate(-50%,-50%)rotateZ(" + gVal + "deg)";
+      gradient.style.transform = "translate(-50%,-70%)rotateZ(" + gVal + "deg)";
 
       // 2. apply our fill to the input
       helpers.applyFill(m, trackColor);
@@ -181,7 +184,7 @@ export async function setUpCustomSlider(cont) {
     m.dispatchEvent(event);
 
     black.style.transform = tick.style.transform =
-      "translate(-50%,-50%)scaleX(-1)rotateZ(-" +
+      "translate(-50%,-70%)scaleX(-1)rotateZ(-" +
       (180 / 100) * m.value +
       "deg)";
     texts.forEach((e) => {
