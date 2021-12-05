@@ -1,10 +1,10 @@
-import * as slider from "./slider.js";
+import app from "./app";
 
 class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
   getDefaultSettings() {
     return {
       selectors: {
-        customSliderContainer: ".custom-slider-container",
+        customSliderContainer: ".slider-container",
       },
     };
   }
@@ -17,7 +17,7 @@ class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
     };
   }
   bindEvents() {
-    slider.setUpCustomSlider(this.elements.$customSliderContainer);
+    app(this.elements.$customSliderContainer);
   }
 }
 
@@ -32,5 +32,4 @@ jQuery(window).on("elementor/frontend/init", () => {
     "frontend/element_ready/customslider.default",
     addHandler
   );
-
 });
