@@ -1,6 +1,9 @@
 .koc-slider-wrapper {
   position: relative;
   .slider-container {
+    .speedo-segment {
+      transition: all 0.5s ease-in-out;
+    }
     .text,
     .media {
       position: absolute;

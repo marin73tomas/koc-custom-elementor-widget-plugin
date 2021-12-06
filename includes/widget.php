@@ -9,7 +9,7 @@ class Custom_Slider_Widget extends Widget_Base
     {
         parent::__construct($data, $args);
 
-        wp_register_script('script-handle', KOC_CW_PATH . 'assets/scripts/bundle.min.js', ['elementor-frontend'], '25.0.0', true);
+        wp_register_script('script-handle', KOC_CW_PATH . 'assets/scripts/bundle.min.js?defer', ['elementor-frontend'], '25.0.0', true);
         wp_register_style('style-handle', KOC_CW_PATH . 'assets/styles/bundle.min.css');
     }
     private function gen_uid($length = 10)
@@ -49,6 +49,7 @@ class Custom_Slider_Widget extends Widget_Base
 
     protected function _register_controls()
     {
+
         //content tab
         $this->start_controls_section(
             'content_section',
@@ -82,6 +83,18 @@ class Custom_Slider_Widget extends Widget_Base
 
         $repeater->start_controls_tabs('tabs_medias');
 
+        $repeater->add_control(
+            'segment_color',
+            [
+                'label' => __('Segment Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'default' => 'black',
+            ]
+        );
         $repeater->start_controls_tab(
             'tab_media_1',
             [
@@ -1615,13 +1628,14 @@ class Custom_Slider_Widget extends Widget_Base
 
 ?>
         <div class="koc-slider-wrapper">
-            <div class="items" style="display:none !important">
+            <div class="items" style="display:none !important" data-gap-color="<?php echo $settings['gap_color']; ?>">
                 <?php
                 if ($settings['list']) {
                     foreach ($settings['list'] as $key => $item) {
                 ?>
-                        <div class="item" data-index="<?php echo esc_attr($key); ?>">
-                            <div class="text"><?php echo esc_html($item['text_content']); ?></div>
+                        <div class=" item <?php echo 'elementor-repeater-item-' . $item['_id']; ?>" data-index="<?php echo esc_attr($key); ?>" data-color="<?php echo esc_attr($item['segment_color']); ?>">
+
+                            <div class="text"><?php echo wp_strip_all_tags(esc_html($item['text_content'])); ?></div>
                             <div class="medias">
                                 <div class="media media1">
                                     <?php echo esc_url($item['media1']['url']); ?>

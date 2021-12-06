@@ -3,14 +3,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Speedometer from "./components/Speedometer";
 
-
 export default async function app(cont) {
   const container =
     cont && cont.length >= 1 && document.querySelector(`#${cont[0].id}`);
 
   if (container) {
-    const items = container.parentElement.querySelectorAll(".items .item");
-    ReactDOM.render(<Speedometer items={Array.from(items)} />, container);
+    const items = container.parentElement.querySelector(".items");
+    const allItems = items.querySelectorAll(".item");
+    ReactDOM.render(
+      <Speedometer
+        items={Array.from(allItems)}
+        gapColor={items.getAttribute("data-gap-color")}
+      />,
+      container
+    );
   }
 
   // if (container) {
