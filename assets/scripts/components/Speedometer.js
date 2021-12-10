@@ -3,15 +3,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
-const Speedometer = ({
-  items,
-  gapSize = 5,
-  gapColor = "white",
-  width,
-  height,
-  dimensionUnit,
-  needleSize = 0.5,
-}) => {
+const Speedometer = ({ items, variables }) => {
   const [currentValue, setCurrentValue] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [segmentStyles, setSegmentStyles] = useState({
@@ -19,7 +11,17 @@ const Speedometer = ({
       fill: "black !important",
     },
   });
-
+  const {
+    rightLabel,
+    leftLabel,
+    gapSize,
+    textAlign,
+    gapColor,
+    size,
+    needleSize,
+    ringSize,
+    dimensionUnit,
+  } = variables;
   const maxValue = 180;
   const length = items ? items.length : 0;
   const step = 180 / length;
@@ -76,7 +78,7 @@ const Speedometer = ({
         }}
         className={`${item.className}`}
       >
-        <div className="text">
+        <div className="text" style={{ textAlign: textAlign }}>
           {item.querySelector(".text")?.innerHTML || ""}
         </div>
         <div className="medias">
@@ -85,6 +87,7 @@ const Speedometer = ({
               className="media"
               src={media.innerHTML}
               alt={[...media.classList].join("")}
+              style={JSON.parse(media.getAttribute("data-styles"))}
             />
           ))}
         </div>
@@ -95,26 +98,34 @@ const Speedometer = ({
     <Box sx={segmentStyles}>
       <Items className="items" />
       <ReactSpeedometer
+        fluidWidth={true}
         className="speedometer"
         value={currentValue}
         customSegmentStops={stops}
         segmentColors={colors}
         minValue={0}
+        width={size}
+        needleHeightRatio={needleSize < 0 ? 0 : needleSize / 100}
+        ringWidth={ringSize}
+        dimensionUnit={dimensionUnit}
         maxValue={maxValue}
         segments={length * 2 - 2} //steps + nGaps
         labelFontSize={0}
         valueTextFontSize={0}
-        needleHeightRatio={needleSize}
       />
-      <Slider
-        className="slider"
-        aria-label="slider-koc"
-        defaultValue={currentValue}
-        step={step}
-        onChange={onChange}
-        min={0}
-        max={maxValue}
-      />
+      <Box className="slider-container">
+        <p className="label-slider label-right">{rightLabel}</p>
+        <p className="label-slider label-left">{leftLabel}</p>
+        <Slider
+          className="slider"
+          aria-label="slider-koc"
+          defaultValue={currentValue}
+          step={step}
+          onChange={onChange}
+          min={0}
+          max={maxValue}
+        />
+      </Box>
     </Box>
   );
 };

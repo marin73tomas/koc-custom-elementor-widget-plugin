@@ -8,12 +8,32 @@ export default async function app(cont) {
     cont && cont.length >= 1 && document.querySelector(`#${cont[0].id}`);
 
   if (container) {
-    const items = container.parentElement.querySelector(".items");
+    const wrapper = container.parentElement;
+    const items = wrapper.querySelector(".items");
     const allItems = items.querySelectorAll(".item");
+    const rightLabel = wrapper.querySelector(".label-right")?.innerHTML || 0;
+    const leftLabel = wrapper.querySelector(".label-left")?.innerHTML || 0;
+    const gapSize = wrapper.querySelector(".gap-size")?.innerHTML || 0;
+    const textAlign = wrapper.querySelector(".text-align")?.innerHTML || 0;
+    const gapColor = items.getAttribute("data-gap-color") || 0;
+    const size = wrapper.querySelector(".speedosize .size")?.innerHTML || 0;
+    const dimensionUnit = wrapper.querySelector(".speedosize .unit")?.innerHTML || 'vw';
+    const needleSize = wrapper.querySelector(".needle-size")?.innerHTML || 0;
+    const ringSize = wrapper.querySelector(".speedoinnersize")?.innerHTML || 0;
     ReactDOM.render(
       <Speedometer
         items={Array.from(allItems)}
-        gapColor={items.getAttribute("data-gap-color")}
+        variables={{
+          rightLabel,
+          leftLabel,
+          gapSize,
+          textAlign,
+          gapColor,
+          size,
+          needleSize,
+          ringSize,
+          dimensionUnit,
+        }}
       />,
       container
     );

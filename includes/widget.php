@@ -983,18 +983,6 @@ class Custom_Slider_Widget extends Widget_Base
         $repeater->end_controls_tabs();
 
 
-
-        // $repeater->add_group_control(
-        //     \Elementor\Group_Control_Image_Size::get_type(),
-        //     [
-        //         'name' => 'media_file_size',
-        //         'exclude' => ['custom'],
-        //         'include' => [],
-        //         'default' => 'large',
-        //     ]
-        // );
-
-
         $repeater->add_control(
             'text_content',
             [
@@ -1154,9 +1142,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gauge_main, 
-                    {{WRAPPER}} .gauge_main .black,
-                     {{WRAPPER}} .gauge_main .meter' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .speedometer' => 'top: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1188,9 +1174,6 @@ class Custom_Slider_Widget extends Widget_Base
                         'max' => 100,
                     ],
                 ],
-                'selectors' => [
-                    '{{WRAPPER}} .chamber' => 'height: {{SIZE}}{{UNIT}} !important;',
-                ],
             ]
         );
         $this->add_control(
@@ -1202,11 +1185,7 @@ class Custom_Slider_Widget extends Widget_Base
                     'type' => \Elementor\Scheme_Color::get_type(),
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
-                'default' => 'purple',
-
-                'selectors' => [
-                    '{{WRAPPER}} .chamber' => 'background: {{VALUE}} !important',
-                ],
+                'default' => 'white',
             ]
         );
         $this->add_control(
@@ -1221,7 +1200,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'default' => 'black',
 
                 'selectors' => [
-                    '{{WRAPPER}} .text-item p, {{WRAPPER}} .label-slider' => 'color: {{VALUE}} !important',
+                    '{{WRAPPER}} .text, {{WRAPPER}} .label-slider' => 'color: {{VALUE}} !important',
                 ],
             ]
         );
@@ -1231,7 +1210,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'name' => 'content_typography',
                 'label' => __('Text Typography', 'plugin-domain'),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-                'selector' => '{{WRAPPER}} .text-item p',
+                'selector' => '{{WRAPPER}} .text',
             ]
         );
 
@@ -1291,7 +1270,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .text-item' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .text' => 'top: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1325,7 +1304,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .text-item' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .text' => 'max-width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1341,62 +1320,30 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
                 'default' => 'white',
                 'selectors' => [
-                    '{{WRAPPER}} .cs-wrapper,{{WRAPPER}} .meter , {{WRAPPER}} .white,  
-                    {{WRAPPER}} .tick path:last-child,  
-                    {{WRAPPER}} .gauge_main, {{WRAPPER}} .gauge_main::after
-                    ' => 'background-color: {{VALUE}} !important; border: 2px solid {{VALUE}} !important; fill: {{VALUE}} !important',
+                    '{{WRAPPER}} .koc-slider-wrapper' => 'background-color: {{VALUE}} !important;',
                 ],
 
             ]
         );
 
         $this->add_control(
-            'empty_section_color',
+            'unfilled_segment_color',
             [
-                'label' => __('Empty Section Speedometer Color', 'plugin-domain'),
+                'label' => __('Unfilled Segment Color', 'plugin-domain'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => \Elementor\Scheme_Color::get_type(),
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'black',
-
-
             ]
         );
 
-        $this->add_control(
-            'fill_left_color',
-            [
-                'label' => __('Section Speedometer Right Color', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => \Elementor\Scheme_Color::get_type(),
-                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                ],
-                'default' => 'blue',
 
-
-            ]
-        );
-        $this->add_control(
-            'fill_right_color',
-            [
-                'label' => __('Section Speedometer Left Color', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => \Elementor\Scheme_Color::get_type(),
-                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                ],
-                'default' => 'green',
-
-
-            ]
-        );
         $this->add_responsive_control(
             'slider_track_height',
             [
-                'label' => __('Slider Track Height (%,px)', 'elementor'),
+                'label' => __('Slider Height (%,px)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 15,
@@ -1420,14 +1367,14 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .cs-range-slider input' => 'height: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider' => 'height: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
         $this->add_responsive_control(
             'slider_track_width',
             [
-                'label' => __('Slider Track Width (%,px)', 'elementor'),
+                'label' => __('Slider Width (%,px)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 100,
@@ -1451,7 +1398,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .cs-range-slider' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider' => 'width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1465,7 +1412,11 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'black',
-            ]
+                'selectors' => [
+                    '{{WRAPPER}} .slider' => 'color: {{VALUE}} !important',
+                ],
+            ],
+
 
 
         );
@@ -1480,9 +1431,10 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'black',
+                'selectors' => [
+                    '{{WRAPPER}} .MuiSlider-thumb' => 'color: {{VALUE}} !important',
+                ],
             ]
-
-
         );
         $this->add_control(
             'slider_thumb_hover_color',
@@ -1494,11 +1446,13 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'blue',
+                'selectors' => [
+                    '{{WRAPPER}} .MuiSlider-thumb:hover' => 'color: {{VALUE}} !important',
+                ],
             ]
 
 
         );
-
 
         $this->add_group_control(
             \Elementor\Group_Control_Typography::get_type(),
@@ -1551,7 +1505,7 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .tick path:not(:last-child)' => 'fill: {{VALUE}} !important',
+                    '{{WRAPPER}} .pointer' => 'fill: {{VALUE}} !important',
                 ],
                 'default' => 'black'
             ]
@@ -1588,35 +1542,7 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
-        $this->add_responsive_control(
-            'needle_position',
-            [
-                'label' => __('Slider Needle Left Position (%, px)', 'elementor'),
-                'type' => Controls_Manager::SLIDER,
-                'render_type' => 'template',
-                'default' => [
-                    'size' => 100,
-                    'unit' => '%',
-                ],
-                'tablet_default' => [
-                    'unit' => 'px',
-                ],
-                'mobile_default' => [
-                    'unit' => 'px',
-                ],
-                'size_units' => ['%', 'px'],
-                'range' => [
-                    '%' => [
-                        'min' => 1,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => 1,
-                        'max' => 5000,
-                    ],
-                ],
-            ]
-        );
+
 
         $this->end_controls_section();
     }
@@ -1628,39 +1554,54 @@ class Custom_Slider_Widget extends Widget_Base
 
 ?>
         <div class="koc-slider-wrapper">
-            <div class="items" style="display:none !important" data-gap-color="<?php echo $settings['gap_color']; ?>">
-                <?php
-                if ($settings['list']) {
-                    foreach ($settings['list'] as $key => $item) {
-                ?>
-                        <div class=" item <?php echo 'elementor-repeater-item-' . $item['_id']; ?>" data-index="<?php echo esc_attr($key); ?>" data-color="<?php echo esc_attr($item['segment_color']); ?>">
+            <div class="hidden-variables">
+                <div class="text-align"><?php echo $settings['text_align']; ?></div>
+                <div class="gap-size"><?php echo $settings["gap_size"]['size']; ?></div>
+                <div class="needle-size"><?php echo $settings["needle_size"]['size']; ?></div>
+                <p class="label-slider label-left"><?php echo $settings['label_left']; ?></p>
+                <p class="label-slider label-right"><?php echo $settings['label_right']; ?></p>
+                <div class="speedosize">
+                    <div class="size"><?php echo $settings['speedosize']['size']; ?>
+                    </div>
+                    <div class="unit"><?php echo $settings['speedosize']['unit']; ?></div>
+                </div>
+                <div class="speedoinnersize"><?php echo $settings['speedoinnersize']['size']; ?></div>
+            </div>
+        </div>
+        <div class="items" style="display:none !important" data-gap-color="<?php echo $settings['gap_color']; ?>">
+            <?php
+            if ($settings['list']) {
+                foreach ($settings['list'] as $key => $item) {
+            ?>
+                    <div class=" item <?php echo 'elementor-repeater-item-' . $item['_id']; ?>" data-index="<?php echo esc_attr($key); ?>" data-color="<?php echo esc_attr($item['segment_color']); ?>">
 
-                            <div class="text"><?php echo wp_strip_all_tags(esc_html($item['text_content'])); ?></div>
-                            <div class="medias">
-                                <div class="media media1">
-                                    <?php echo esc_url($item['media1']['url']); ?>
+                        <div class="text"><?php echo wp_strip_all_tags(esc_html($item['text_content'])); ?></div>
+                        <div class="medias">
+                            <?php for ($i = 1; $i <= 4; $i++) { ?>
+                                <div class="media media<?php echo $i; ?>" data-styles='{
+                                 "opacity": "<?php echo $item['opacity'] ? $item['opacity'] : 1; ?>",
+                                        <?php if ($item["repeat_animation{$i}"]) { ?>
+                                 "animationIterationCount": "<?php echo $item["animation_repeat_times_{$i}"] ? $item["animation_repeat_times_{$i}"] : 'infinite'; ?> !important",
+                                        <?php } ?>
+                                "animationDuration": "<?php echo $item["animation_delay{$i}"] ?> !important"
+                                }
+                                '>
+                                    <?php echo esc_url($item["media{$i}"]['url']); ?>
                                 </div>
-                                <div class="media media2">
-                                    <?php echo esc_url($item['media2']['url']); ?>
-                                </div>
-                                <div class="media media3">
-                                    <?php echo esc_url($item['media3']['url']); ?>
-                                </div>
-                                <div class="media media3">
-                                    <?php echo esc_url($item['media4']['url']); ?>
-                                </div>
-                            </div>
+
+                            <?php } ?>
                         </div>
+                    </div>
 
-                <?php
-                    }
+            <?php
                 }
+            }
 
-                ?>
-            </div>
-            <div class="slider-container" id="<?php echo $this->gen_uid(); ?>">
+            ?>
+        </div>
+        <div class="slider-container" id="<?php echo $this->gen_uid(); ?>">
 
-            </div>
+        </div>
 
         </div>
     <?php
