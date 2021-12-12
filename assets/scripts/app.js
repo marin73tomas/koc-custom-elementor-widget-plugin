@@ -10,29 +10,48 @@ export default async function app(cont) {
   if (container) {
     const wrapper = container.parentElement;
     const items = wrapper.querySelector(".items");
-    const allItems = items.querySelectorAll(".item");
     const rightLabel = wrapper.querySelector(".label-right")?.innerHTML || 0;
     const leftLabel = wrapper.querySelector(".label-left")?.innerHTML || 0;
-    const gapSize = wrapper.querySelector(".gap-size")?.innerHTML || 0;
+    const gapSize = Number(wrapper.querySelector(".gap-size")?.innerHTML || 0);
     const textAlign = wrapper.querySelector(".text-align")?.innerHTML || 0;
     const gapColor = items.getAttribute("data-gap-color") || 0;
-    const size = wrapper.querySelector(".speedosize .size")?.innerHTML || 0;
-    const dimensionUnit = wrapper.querySelector(".speedosize .unit")?.innerHTML || 'vw';
-    const needleSize = wrapper.querySelector(".needle-size")?.innerHTML || 0;
-    const ringSize = wrapper.querySelector(".speedoinnersize")?.innerHTML || 0;
+    const needleSize =
+      Number(
+        wrapper.querySelector(".needle-size")?.innerHTML.replaceAll(" ", "")
+      ) || 0;
+
+    const ringSize =
+      wrapper
+        .querySelector(".speedoinnersize")
+        ?.innerHTML.replaceAll(" ", "") || 0;
+
+    const allItems = Array.from(items.querySelectorAll(".item")).map(
+      (item, idx) => ({
+        text: item.querySelector(".text")?.innerHTML || "",
+        className: item.className,
+        dataColor: item.getAttribute("data-color"),
+        medias: Array.from(item.querySelectorAll(".medias .media")).map(
+          (media) => ({
+            className: "media",
+            src: media.innerHTML,
+            alt: [...media.classList].join(""),
+            style: JSON.parse(media.getAttribute("data-styles")),
+          })
+        ),
+      })
+    );
+
     ReactDOM.render(
       <Speedometer
-        items={Array.from(allItems)}
+        items={allItems}
         variables={{
           rightLabel,
           leftLabel,
           gapSize,
           textAlign,
           gapColor,
-          size,
           needleSize,
           ringSize,
-          dimensionUnit,
         }}
       />,
       container

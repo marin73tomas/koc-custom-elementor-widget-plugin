@@ -17,33 +17,36 @@ const Speedometer = ({ items, variables }) => {
     gapSize,
     textAlign,
     gapColor,
-    size,
     needleSize,
     ringSize,
-    dimensionUnit,
   } = variables;
+
   const maxValue = 180;
   const length = items ? items.length : 0;
-  const step = 180 / length;
+  const step = (180 - gapSize * (length - 1)) / length;
+
   const customProps = useMemo(() => {
-    let counter = 1;
+    let stepCounter = 1;
+    let gapCounter = 1;
     let data = 0;
-    const stops = [
-      0,
-      ...new Array(length * 2 - 2).fill(0).map((e, idx) => {
-        if (idx % 2 == 0) {
-          data = step * counter - gapSize;
-          counter++;
-          return data;
+    const stops = new Array(length * 2).fill(0).map((e, idx) => {
+      if (idx) {
+        if (idx == 1) {
+          return step;
         }
-        return data + gapSize;
-      }),
-      180,
-    ];
-    counter = 0;
-    const colors = new Array(length * 2 - 1).fill(0).map((e, idx) => {
+
+        data = step * stepCounter + gapSize * gapCounter;
+
+        if (idx % 2 != 0) gapCounter++;
+        if (idx % 2 == 0) stepCounter++;
+        return data;
+      }
+      return idx;
+    });
+    let counter = 0;
+    const colors = new Array(length * 2).fill(0).map((e, idx) => {
       if (idx % 2 == 0) {
-        const color = items[counter].getAttribute("data-color");
+        const color = items[counter].dataColor;
         counter++;
         return color;
       }
@@ -51,7 +54,7 @@ const Speedometer = ({ items, variables }) => {
     });
 
     return { stops, colors };
-  }, [step, gapSize]);
+  }, []);
   const { stops, colors } = customProps;
 
   const onChange = (event) => {
@@ -79,17 +82,22 @@ const Speedometer = ({ items, variables }) => {
         className={`${item.className}`}
       >
         <div className="text" style={{ textAlign: textAlign }}>
-          {item.querySelector(".text")?.innerHTML || ""}
+          {item.text}
         </div>
         <div className="medias">
-          {Array.from(item.querySelectorAll(".medias .media")).map((media) => (
-            <img
-              className="media"
-              src={media.innerHTML}
-              alt={[...media.classList].join("")}
-              style={JSON.parse(media.getAttribute("data-styles"))}
-            />
-          ))}
+          {item.medias
+            .filter(
+              (media) =>
+                !media.src.includes("/elementor/assets/images/placeholder.png")
+            )
+            .map((media) => (
+              <img
+                className="media"
+                src={media.src}
+                alt={media.alt}
+                style={media.style}
+              />
+            ))}
         </div>
       </Box>
     ));
@@ -97,30 +105,29 @@ const Speedometer = ({ items, variables }) => {
   return (
     <Box sx={segmentStyles}>
       <Items className="items" />
-      <ReactSpeedometer
-        fluidWidth={true}
-        className="speedometer"
-        value={currentValue}
-        customSegmentStops={stops}
-        segmentColors={colors}
-        minValue={0}
-        width={size}
-        needleHeightRatio={needleSize < 0 ? 0 : needleSize / 100}
-        ringWidth={ringSize}
-        dimensionUnit={dimensionUnit}
-        maxValue={maxValue}
-        segments={length * 2 - 2} //steps + nGaps
-        labelFontSize={0}
-        valueTextFontSize={0}
-      />
-      <Box className="slider-container">
+      <div className="slider-inner-container">
+        <ReactSpeedometer
+          fluidWidth={true}
+          className="speedometer"
+          value={currentValue}
+          customSegmentStops={stops}
+          segmentColors={colors}
+          minValue={0}
+          needleHeightRatio={needleSize}
+          ringWidth={ringSize}
+          maxValue={maxValue}
+          labelFontSize={0}
+          valueTextFontSize={0}
+        />
+      </div>
+      <Box className="slider-track-container">
         <p className="label-slider label-right">{rightLabel}</p>
         <p className="label-slider label-left">{leftLabel}</p>
         <Slider
           className="slider"
           aria-label="slider-koc"
           defaultValue={currentValue}
-          step={step}
+          step={180 / length}
           onChange={onChange}
           min={0}
           max={maxValue}

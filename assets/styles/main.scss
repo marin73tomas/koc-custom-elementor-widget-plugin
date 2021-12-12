@@ -1,25 +1,51 @@
 .koc-slider-wrapper {
   position: relative;
-  .slider-container {
-    .speedo-segment {
-      transition: all 0.5s ease-in-out;
-    }
-    .text,
-    .media {
+}
+
+.slider-container {
+  .item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+  }
+  .speedometer,
+  .slider-inner-container {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    overflow: visible !important;
+  }
+  .speedo-segment {
+    transition: all 0.5s ease-in-out;
+  }
+  .text,
+  .media {
+    position: absolute;
+  }
+  .text {
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .slider-inner-container {
+    z-index: 2;
+  }
+  .slider-track-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 4;
+    .label-slider {
       position: absolute;
-    }
-    .text {
-      width: 100%;
-      height: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .speedometer{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      &.label-right {
+        right: 0;
+      }
+      &.label-left {
+        left: 0;
+      }
     }
   }
 }

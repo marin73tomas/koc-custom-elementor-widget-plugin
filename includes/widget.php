@@ -1046,7 +1046,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .cs-wrapper' => 'min-height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .slider-container' => 'min-height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1054,22 +1054,16 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_responsive_control(
             'speedosize',
             [
-                'label' => __('Speedometer Size (vw,px)', 'elementor'),
+                'label' => __('Speedometer Size (%,px)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 17,
-                    'unit' => 'vw',
+                    'size' => 90,
+                    'unit' => '%',
                 ],
-                'tablet_default' => [
-                    'unit' => 'vw',
-                ],
-                'mobile_default' => [
-                    'unit' => 'vw',
-                ],
-                'size_units' => ['vw', 'px'],
+                'size_units' => ['%', 'px'],
                 'range' => [
-                    'vw' => [
-                        'min' => 17,
+                    '%' => [
+                        'min' => 1,
                         'max' => 100,
                     ],
                     'px' => [
@@ -1078,7 +1072,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .gradient,{{WRAPPER}} .gradient-filled, {{WRAPPER}} .gauge_main' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider-inner-container,{{WRAPPER}} .slider-inner-container > div ' => 'width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1088,29 +1082,18 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Speedometer Inner Circle Size (vw,px)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 11,
-                    'unit' => 'vw',
+                    'size' => 60,
+                    'unit' => '',
                 ],
-                'tablet_default' => [
-                    'unit' => 'vw',
-                ],
-                'mobile_default' => [
-                    'unit' => 'vw',
-                ],
-                'size_units' => ['vw', 'px'],
+                'size_units' => [''],
                 'range' => [
-                    'vw' => [
-                        'min' => 9,
+                    '' => [
+                        'min' => 0,
                         'max' => 100,
                     ],
-                    'px' => [
-                        'min' => 153,
-                        'max' => 5000,
-                    ],
+
                 ],
-                'selectors' => [
-                    '{{WRAPPER}} .white' => 'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important;',
-                ],
+
             ]
         );
         $this->add_responsive_control(
@@ -1119,7 +1102,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Speedometer position (Top)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 70,
+                    'size' => 0,
                     'unit' => '%',
                 ],
                 'size_units' => ['%', 'px', 'em', 'rem'],
@@ -1153,24 +1136,12 @@ class Custom_Slider_Widget extends Widget_Base
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 4,
-                    'unit' => 'px',
+                    'unit' => '',
                 ],
-                'size_units' => ['%', 'px', 'em', 'rem'],
+                'size_units' => [''],
                 'range' => [
-                    'em' => [
-                        'min' => 1,
-                        'max' => 100,
-                    ],
-                    '%' => [
-                        'min' => 1,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => 1,
-                        'max' => 300,
-                    ],
-                    'rem' => [
-                        'min' => 1,
+                    '' => [
+                        'min' => 0,
                         'max' => 100,
                     ],
                 ],
@@ -1310,23 +1281,6 @@ class Custom_Slider_Widget extends Widget_Base
         );
 
         $this->add_control(
-            'bg_color',
-            [
-                'label' => __('Background Color', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => \Elementor\Scheme_Color::get_type(),
-                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                ],
-                'default' => 'white',
-                'selectors' => [
-                    '{{WRAPPER}} .koc-slider-wrapper' => 'background-color: {{VALUE}} !important;',
-                ],
-
-            ]
-        );
-
-        $this->add_control(
             'unfilled_segment_color',
             [
                 'label' => __('Unfilled Segment Color', 'plugin-domain'),
@@ -1420,7 +1374,27 @@ class Custom_Slider_Widget extends Widget_Base
 
 
         );
-
+        $this->add_responsive_control(
+            'slider_thumb_size',
+            [
+                'label' => __('Slider Thumb Size (%,px)', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 20,
+                    'unit' => 'px',
+                ],
+                'size_units' => ['px'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 5000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .slider-track-container .MuiSlider-thumb' => 'width: {{SIZE}}{{UNIT}} !important;height: {{SIZE}}{{UNIT}} !important;',
+                ],
+            ]
+        );
         $this->add_control(
             'slider_thumb_color',
             [
@@ -1453,6 +1427,7 @@ class Custom_Slider_Widget extends Widget_Base
 
 
         );
+
 
         $this->add_group_control(
             \Elementor\Group_Control_Typography::get_type(),
@@ -1513,31 +1488,18 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_responsive_control(
             'needle_size',
             [
-                'label' => __('Slider Needle Size (%, px)', 'elementor'),
+                'label' => __('Slider Needle Size', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 13,
-                    'unit' => '%',
+                    'size' => 0.9,
+                    'unit' => '',
                 ],
-                'tablet_default' => [
-                    'unit' => 'px',
-                ],
-                'mobile_default' => [
-                    'unit' => 'px',
-                ],
-                'size_units' => ['%', 'px'],
+                'size_units' => [''],
                 'range' => [
-                    '%' => [
-                        'min' => 1,
-                        'max' => 100,
+                    '' => [
+                        'min' => 0,
+                        'max' => 1,
                     ],
-                    'px' => [
-                        'min' => 1,
-                        'max' => 5000,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .tick' => 'width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1554,7 +1516,7 @@ class Custom_Slider_Widget extends Widget_Base
 
 ?>
         <div class="koc-slider-wrapper">
-            <div class="hidden-variables">
+            <div class="hidden-variables" style="display:none !important">
                 <div class="text-align"><?php echo $settings['text_align']; ?></div>
                 <div class="gap-size"><?php echo $settings["gap_size"]['size']; ?></div>
                 <div class="needle-size"><?php echo $settings["needle_size"]['size']; ?></div>
