@@ -5,15 +5,7 @@ import Slider from "@mui/material/Slider";
 
 const Speedometer = ({ items, variables }) => {
   const sliderRef = useRef(null);
-  useEffect(() => {
-    if (sliderRef.current) {
-      const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
-      if (showMarks && marks.length >= 1) {
-        marks[0].style.display = "none";
-        marks[marks.length - 1].style.display = "none";
-      }
-    }
-  }, []);
+  const speedoRef = useRef(null);
 
   const {
     show,
@@ -27,14 +19,36 @@ const Speedometer = ({ items, variables }) => {
     ringSize,
     unfilledSegmentColor,
   } = variables;
-  console.log(variables);
+  //console.log(variables);
   const [currentValue, setCurrentValue] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+  const [width, setWidth] = useState(1);
   const [segmentStyles, setSegmentStyles] = useState({
     "& .arc path:nth-child(odd)": {
       fill: `${unfilledSegmentColor} !important`,
     },
   });
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
+      if (showMarks && marks.length >= 1) {
+        marks[0].style.display = "none";
+        marks[marks.length - 1].style.display = "none";
+      }
+    }
+    if (speedoRef.current) {
+      const meter = speedoRef.current.querySelector(".speedometer");
+      if (meter) {
+        meter.style.height = "inherit";
+        meter.removeAttribute("height");
+      }
+    }
+    window.addEventListener("resize", (e) => {
+      setWidth(document.body.offsetWidth);
+    });
+  }, []);
+
   const maxValue = 180;
   const length = items ? items.length : 0;
   const step = (180 - gapSize * (length - 1)) / length;
@@ -119,8 +133,8 @@ const Speedometer = ({ items, variables }) => {
   return (
     <Box sx={segmentStyles}>
       <Items className="items" />
-      <div className="slider-inner-container">
-        {show && (
+      <div className="slider-inner-container" ref={speedoRef}>
+        {show && width && (
           <ReactSpeedometer
             fluidWidth={true}
             className="speedometer"
