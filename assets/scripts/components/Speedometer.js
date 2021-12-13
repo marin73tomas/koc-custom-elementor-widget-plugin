@@ -22,7 +22,6 @@ const Speedometer = ({ items, variables }) => {
   //console.log(variables);
   const [currentValue, setCurrentValue] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
-  const [width, setWidth] = useState(1);
   const [segmentStyles, setSegmentStyles] = useState({
     "& .arc path:nth-child(odd)": {
       fill: `${unfilledSegmentColor} !important`,
@@ -44,9 +43,6 @@ const Speedometer = ({ items, variables }) => {
         meter.removeAttribute("height");
       }
     }
-    window.addEventListener("resize", (e) => {
-      setWidth(document.body.offsetWidth);
-    });
   }, []);
 
   const maxValue = 180;
@@ -134,21 +130,19 @@ const Speedometer = ({ items, variables }) => {
     <Box sx={segmentStyles}>
       <Items className="items" />
       <div className="slider-inner-container" ref={speedoRef}>
-        {show && width && (
-          <ReactSpeedometer
-            fluidWidth={true}
-            className="speedometer"
-            value={currentValue}
-            customSegmentStops={stops}
-            segmentColors={colors}
-            minValue={0}
-            needleHeightRatio={needleSize}
-            ringWidth={Number(ringSize)}
-            maxValue={maxValue}
-            labelFontSize={0}
-            valueTextFontSize={0}
-          />
-        )}
+        <ReactSpeedometer
+          fluidWidth={true}
+          className="speedometer"
+          value={currentValue}
+          customSegmentStops={stops}
+          segmentColors={colors}
+          minValue={0}
+          needleHeightRatio={needleSize}
+          ringWidth={Number(ringSize)}
+          maxValue={maxValue}
+          labelFontSize={0}
+          valueTextFontSize={0}
+        />
       </div>
       <Box className="slider-track-container">
         <p className="label-slider label-right">{rightLabel}</p>
