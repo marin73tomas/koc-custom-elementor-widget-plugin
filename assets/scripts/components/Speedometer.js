@@ -1,17 +1,23 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
 const Speedometer = ({ items, variables }) => {
-  const [currentValue, setCurrentValue] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [segmentStyles, setSegmentStyles] = useState({
-    "& .arc path:nth-child(odd)": {
-      fill: "black !important",
-    },
-  });
+  const sliderRef = useRef(null);
+  useEffect(() => {
+    if (sliderRef.current) {
+      const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
+      if (showMarks && marks.length >= 1) {
+        marks[0].style.display = "none";
+        marks[marks.length - 1].style.display = "none";
+      }
+    }
+  }, []);
+
   const {
+    show,
+    showMarks,
     rightLabel,
     leftLabel,
     gapSize,
@@ -19,8 +25,16 @@ const Speedometer = ({ items, variables }) => {
     gapColor,
     needleSize,
     ringSize,
+    unfilledSegmentColor,
   } = variables;
-
+  console.log(variables);
+  const [currentValue, setCurrentValue] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [segmentStyles, setSegmentStyles] = useState({
+    "& .arc path:nth-child(odd)": {
+      fill: `${unfilledSegmentColor} !important`,
+    },
+  });
   const maxValue = 180;
   const length = items ? items.length : 0;
   const step = (180 - gapSize * (length - 1)) / length;
@@ -66,7 +80,7 @@ const Speedometer = ({ items, variables }) => {
     const emptyObject = {};
     emptyObject[`& .arc path:nth-child(odd):nth-child(n+${currentStep * 2})`] =
       {
-        fill: "black !important",
+        fill: `${unfilledSegmentColor} !important`,
       };
     setSegmentStyles(emptyObject);
     setCurrentValue(setValue);
@@ -82,7 +96,7 @@ const Speedometer = ({ items, variables }) => {
         className={`${item.className}`}
       >
         <div className="text" style={{ textAlign: textAlign }}>
-          {item.text}
+          <p>{item.text}</p>
         </div>
         <div className="medias">
           {item.medias
@@ -92,9 +106,9 @@ const Speedometer = ({ items, variables }) => {
             )
             .map((media) => (
               <img
-                className="media"
+                className={media.className}
                 src={media.src}
-                alt={media.alt}
+                alt=""
                 style={media.style}
               />
             ))}
@@ -106,19 +120,21 @@ const Speedometer = ({ items, variables }) => {
     <Box sx={segmentStyles}>
       <Items className="items" />
       <div className="slider-inner-container">
-        <ReactSpeedometer
-          fluidWidth={true}
-          className="speedometer"
-          value={currentValue}
-          customSegmentStops={stops}
-          segmentColors={colors}
-          minValue={0}
-          needleHeightRatio={needleSize}
-          ringWidth={ringSize}
-          maxValue={maxValue}
-          labelFontSize={0}
-          valueTextFontSize={0}
-        />
+        {show && (
+          <ReactSpeedometer
+            fluidWidth={true}
+            className="speedometer"
+            value={currentValue}
+            customSegmentStops={stops}
+            segmentColors={colors}
+            minValue={0}
+            needleHeightRatio={needleSize}
+            ringWidth={Number(ringSize)}
+            maxValue={maxValue}
+            labelFontSize={0}
+            valueTextFontSize={0}
+          />
+        )}
       </div>
       <Box className="slider-track-container">
         <p className="label-slider label-right">{rightLabel}</p>
@@ -131,6 +147,8 @@ const Speedometer = ({ items, variables }) => {
           onChange={onChange}
           min={0}
           max={maxValue}
+          marks={showMarks}
+          ref={sliderRef}
         />
       </Box>
     </Box>

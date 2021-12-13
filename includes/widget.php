@@ -1021,10 +1021,29 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
+
+        $this->add_control(
+            'show_speedometer',
+            [
+                'label' => __('Show Speedometer', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'your-plugin'),
+                'label_off' => __(
+                    'No',
+                    'your-plugin'
+                ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+                'render_type' => 'template',
+            ]
+        );
+
+
+
         $this->add_responsive_control(
             'sectionminheight',
             [
-                'label' => __('Section Min Height (%)', 'elementor'),
+                'label' => __('Section Min Height', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 100,
@@ -1054,7 +1073,7 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_responsive_control(
             'speedosize',
             [
-                'label' => __('Speedometer Size (%,px)', 'elementor'),
+                'label' => __('Speedometer Size', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 90,
@@ -1074,12 +1093,13 @@ class Custom_Slider_Widget extends Widget_Base
                 'selectors' => [
                     '{{WRAPPER}} .slider-inner-container,{{WRAPPER}} .slider-inner-container > div ' => 'width: {{SIZE}}{{UNIT}} !important;',
                 ],
+                'render_type' => 'template',
             ]
         );
         $this->add_responsive_control(
             'speedoinnersize',
             [
-                'label' => __('Speedometer Inner Circle Size (vw,px)', 'elementor'),
+                'label' => __('Ring Size', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 60,
@@ -1089,11 +1109,11 @@ class Custom_Slider_Widget extends Widget_Base
                 'range' => [
                     '' => [
                         'min' => 0,
-                        'max' => 100,
+                        'max' => 500,
                     ],
 
                 ],
-
+                'render_type' => 'template',
             ]
         );
         $this->add_responsive_control(
@@ -1127,6 +1147,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'selectors' => [
                     '{{WRAPPER}} .speedometer' => 'top: {{SIZE}}{{UNIT}} !important;',
                 ],
+
             ]
         );
         $this->add_responsive_control(
@@ -1145,6 +1166,7 @@ class Custom_Slider_Widget extends Widget_Base
                         'max' => 100,
                     ],
                 ],
+                'render_type' => 'template',
             ]
         );
         $this->add_control(
@@ -1157,6 +1179,7 @@ class Custom_Slider_Widget extends Widget_Base
                     'value' => \Elementor\Scheme_Color::COLOR_1,
                 ],
                 'default' => 'white',
+
             ]
         );
         $this->add_control(
@@ -1297,7 +1320,7 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_responsive_control(
             'slider_track_height',
             [
-                'label' => __('Slider Height (%,px)', 'elementor'),
+                'label' => __('Slider Height', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 15,
@@ -1328,7 +1351,7 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_responsive_control(
             'slider_track_width',
             [
-                'label' => __('Slider Width (%,px)', 'elementor'),
+                'label' => __('Slider Width', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 100,
@@ -1352,7 +1375,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .slider' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider-track-container ' => 'width: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
         );
@@ -1377,7 +1400,7 @@ class Custom_Slider_Widget extends Widget_Base
         $this->add_responsive_control(
             'slider_thumb_size',
             [
-                'label' => __('Slider Thumb Size (%,px)', 'elementor'),
+                'label' => __('Slider Thumb Size', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 20,
@@ -1504,6 +1527,21 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
+        $this->add_control(
+            'show_step_marks',
+            [
+                'label' => __('Show Slider Step Marks', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'your-plugin'),
+                'label_off' => __(
+                    'No',
+                    'your-plugin'
+                ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+                'render_type' => 'template',
+            ]
+        );
 
 
         $this->end_controls_section();
@@ -1518,10 +1556,13 @@ class Custom_Slider_Widget extends Widget_Base
         <div class="koc-slider-wrapper">
             <div class="hidden-variables" style="display:none !important">
                 <div class="text-align"><?php echo $settings['text_align']; ?></div>
+                <div class="unfilled-segment-color"><?php echo $settings['unfilled_segment_color']; ?></div>
                 <div class="gap-size"><?php echo $settings["gap_size"]['size']; ?></div>
                 <div class="needle-size"><?php echo $settings["needle_size"]['size']; ?></div>
                 <p class="label-slider label-left"><?php echo $settings['label_left']; ?></p>
                 <p class="label-slider label-right"><?php echo $settings['label_right']; ?></p>
+                <div class="show_speedometer"><?php echo $settings['show_speedometer']; ?></div>
+                <div class="show_step_marks"><?php echo $settings['show_step_marks']; ?></div>
                 <div class="speedosize">
                     <div class="size"><?php echo $settings['speedosize']['size']; ?>
                     </div>
@@ -1540,7 +1581,7 @@ class Custom_Slider_Widget extends Widget_Base
                         <div class="text"><?php echo wp_strip_all_tags(esc_html($item['text_content'])); ?></div>
                         <div class="medias">
                             <?php for ($i = 1; $i <= 4; $i++) { ?>
-                                <div class="media media<?php echo $i; ?>" data-styles='{
+                                <div class="<?php echo  $item["entrance_animation{$i}"]; ?> media media<?php echo $i; ?>" data-styles='{
                                  "opacity": "<?php echo $item['opacity'] ? $item['opacity'] : 1; ?>",
                                         <?php if ($item["repeat_animation{$i}"]) { ?>
                                  "animationIterationCount": "<?php echo $item["animation_repeat_times_{$i}"] ? $item["animation_repeat_times_{$i}"] : 'infinite'; ?> !important",
@@ -1572,7 +1613,91 @@ class Custom_Slider_Widget extends Widget_Base
     protected function _content_template()
     {
     ?>
-        <div class="slider-container" id="<?php echo $this->gen_uid(); ?>">
+        <div class="koc-slider-wrapper">
+            <div class="hidden-variables" style="display:none !important">
+                <div class="text-align">{{{settings.text_align}}}</div>
+                <div class="unfilled-segment-color">{{{settings.unfilled_segment_color}}}</div>
+                <div class="gap-size">{{{settings.gap_size.size}}} </div>
+                <div class="needle-size">{{{settings.needle_size.size}}} </div>
+                <p class="label-slider label-left">{{{settings.label_left}}}</p>
+                <p class="label-slider label-right">{{{settings.label_right}}} </p>
+                <div class="hide-speedometer">{{{settings.hide_speedometer}}} </div>
+                <div class="show_speedometer">{{{settings.show_speedometer}}} </div>
+                <div class="show_step_marks">{{{settings.show_step_mark}}} </div>
+                <div class="speedosize">
+                    <div class="size">{{{settings.speedosize.size}}}
+                    </div>
+                    <div class="unit">{{{settings.speedosize.unit}}}</div>
+                </div>
+                <div class="speedoinnersize">{{{settings.speedoinnersize.size}}}</div>
+            </div>
+        </div>
+        <div class="items" style="display:none !important" data-gap-color="{{{settings.gap_color}}}">
+            <# _.each( settings.list, function( item,index ) { #>
+
+                <div class="item elementor-repeater-item-{{{item._id}}}" data-index="{{{item.index}}}" data-color="{{{item.segment_color}}}">
+
+                    <div class="text">
+                        {{{item.text_content}}}
+                    </div>
+                    <div class="medias">
+
+                        <div class="{{{item.entrance_animation1}}} media media1" data-styles='{
+                            "opacity":  "{{{item.opacity1}}}",
+                            <# if (item.repeat_animation1 == 0) { #>
+                            "animationIterationCount": "infinite !important",
+                            <# } else { #>
+                             "animationIterationCount": "{{{item.repeat_animation1}}} !important",    
+                            <# } #>  
+                            "animationDuration": "{{{item.animation_delay1}}} !important"
+                            }
+                            '>
+                            {{{item.media1.url}}}
+                        </div>
+
+                        <div class="{{{item.entrance_animation2}}} media media2" data-styles='{
+                            "opacity":  "{{{item.opacity2}}}",
+                            <# if (item.repeat_animation2 == 0) { #>
+                            "animationIterationCount": "infinite !important",
+                            <# } else { #>
+                             "animationIterationCount": "{{{item.repeat_animation2}}} !important",    
+                            <# } #>  
+                            "animationDuration": "{{{item.animation_delay2}}} !important"
+                            }
+                            '>
+                            {{{item.media2.url}}}
+                        </div>
+                        <div class="{{{item.entrance_animation3}}} media media3" data-styles='{
+                            "opacity":  "{{{item.opacity3}}}",
+                            <# if (item.repeat_animation3 == 0) { #>
+                            "animationIterationCount": "infinite !important",
+                            <# } else { #>
+                             "animationIterationCount": "{{{item.repeat_animation3}}} !important",    
+                            <# } #> 
+                            "animationDuration": "{{{item.animation_delay3}}} !important"
+                            }
+                            '>
+                            {{{item.media3.url}}}
+                        </div>
+                        <div class="{{{item.entrance_animation4}}} media media4" data-styles='{
+                            "opacity":  "{{{item.opacity4}}}",
+                            <# if (item.repeat_animation4 == 0) { #>
+                            "animationIterationCount": "infinite !important",
+                            <# } else { #>
+                             "animationIterationCount": "{{{item.repeat_animation4}}} !important",    
+                            <# } #>
+                            "animationDuration": "{{{item.animation_delay4}}} !important"
+                            }
+                            '>
+                            {{{item.media4.url}}}
+                        </div>
+                    </div>
+                </div>
+
+                <# }); #>
+
+        </div>
+        <div class="slider-container" id="<?php echo $this->gen_uid(); ?>"> </div>
 
         </div>
 

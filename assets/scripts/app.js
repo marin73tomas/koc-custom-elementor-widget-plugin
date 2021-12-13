@@ -15,6 +15,9 @@ export default async function app(cont) {
     const gapSize = Number(wrapper.querySelector(".gap-size")?.innerHTML || 0);
     const textAlign = wrapper.querySelector(".text-align")?.innerHTML || 0;
     const gapColor = items.getAttribute("data-gap-color") || 0;
+    const unfilledSegmentColor =
+      wrapper.querySelector(".unfilled-segment-color")?.innerHTML || "black";
+    wrapper.querySelector(".text-align")?.innerHTML;
     const needleSize =
       Number(
         wrapper.querySelector(".needle-size")?.innerHTML.replaceAll(" ", "")
@@ -24,6 +27,14 @@ export default async function app(cont) {
       wrapper
         .querySelector(".speedoinnersize")
         ?.innerHTML.replaceAll(" ", "") || 0;
+    const show =
+      wrapper.querySelector(".show_speedometer").innerHTML == "yes"
+        ? true
+        : false;
+    const showMarks =
+      wrapper.querySelector(".show_step_marks").innerHTML == "yes"
+        ? true
+        : false;
 
     const allItems = Array.from(items.querySelectorAll(".item")).map(
       (item, idx) => ({
@@ -32,9 +43,8 @@ export default async function app(cont) {
         dataColor: item.getAttribute("data-color"),
         medias: Array.from(item.querySelectorAll(".medias .media")).map(
           (media) => ({
-            className: "media",
+            className: `media animated ${[...media.classList].join(" ")}`,
             src: media.innerHTML,
-            alt: [...media.classList].join(""),
             style: JSON.parse(media.getAttribute("data-styles")),
           })
         ),
@@ -45,6 +55,8 @@ export default async function app(cont) {
       <Speedometer
         items={allItems}
         variables={{
+          show,
+          showMarks,
           rightLabel,
           leftLabel,
           gapSize,
@@ -52,6 +64,7 @@ export default async function app(cont) {
           gapColor,
           needleSize,
           ringSize,
+          unfilledSegmentColor,
         }}
       />,
       container
