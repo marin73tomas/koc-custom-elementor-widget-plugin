@@ -3,7 +3,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
-const Speedometer = ({ items, variables }) => {
+const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   const sliderRef = useRef(null);
   const speedoRef = useRef(null);
 
@@ -18,19 +18,17 @@ const Speedometer = ({ items, variables }) => {
     needleSize,
     ringSize,
     unfilledSegmentColor,
+    initialSegmentStyle
   } = variables;
   //console.log(variables);
-  const [currentValue, setCurrentValue] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [segmentStyles, setSegmentStyles] = useState({
-    "& .arc path:nth-child(odd)": {
-      fill: `${unfilledSegmentColor} !important`,
-    },
-  });
+  const [currentValue, setCurrentValue] = useState(lastValue || 0);
+  const [currentStep, setCurrentStep] = useState(lastStep || 0);
+  const [segmentStyles, setSegmentStyles] = useState(initialSegmentStyle);
 
   useEffect(() => {
     if (sliderRef.current) {
       const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
+      console.log({showMarks})
       if (showMarks && marks.length >= 1) {
         marks[0].style.display = "none";
         marks[marks.length - 1].style.display = "none";
@@ -84,17 +82,22 @@ const Speedometer = ({ items, variables }) => {
   const onChange = (event) => {
     const value = event.target.value;
 
-    const currentStep = parseInt((value * length) / maxValue);
+    const step = parseInt((value * length) / maxValue);
 
     const setValue = value == 0 || value == maxValue ? value : value - gapSize;
     const emptyObject = {};
-    emptyObject[`& .arc path:nth-child(odd):nth-child(n+${currentStep * 2})`] =
-      {
-        fill: `${unfilledSegmentColor} !important`,
-      };
+    emptyObject[`& .arc path:nth-child(odd):nth-child(n+${step * 2})`] = {
+      fill: `${unfilledSegmentColor} !important`,
+    };
     setSegmentStyles(emptyObject);
-    setCurrentValue(setValue);
-    setCurrentStep(currentStep);
+    setCurrentValue((lastVal) => {
+      window.kocCurrentValue = setValue;
+      return setValue;
+    });
+    setCurrentStep((lastStep) => {
+      window.kocCurrentStep = step;
+      return step;
+    });
   };
 
   const Items = () =>

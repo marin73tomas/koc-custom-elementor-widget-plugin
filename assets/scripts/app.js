@@ -35,7 +35,15 @@ export default async function app(cont) {
       wrapper.querySelector(".show_step_marks").innerHTML == "yes"
         ? true
         : false;
-
+    const emptyObject = {};
+    emptyObject[
+      `& .arc path:nth-child(odd):nth-child(n+${
+        (window.kocCurrentStep || 0) * 2
+      })`
+    ] = {
+      fill: `${unfilledSegmentColor} !important`,
+    };
+    const initialSegmentStyle = emptyObject;
     const allItems = Array.from(items.querySelectorAll(".item")).map(
       (item, idx) => ({
         text: item.querySelector(".text")?.innerHTML || "",
@@ -65,7 +73,10 @@ export default async function app(cont) {
           needleSize,
           ringSize,
           unfilledSegmentColor,
+          initialSegmentStyle,
         }}
+        lastStep={window.kocCurrentStep}
+        lastValue={window.kocCurrentValue}
       />,
       container
     );

@@ -1623,7 +1623,7 @@ class Custom_Slider_Widget extends Widget_Base
                 <p class="label-slider label-right">{{{settings.label_right}}} </p>
                 <div class="hide-speedometer">{{{settings.hide_speedometer}}} </div>
                 <div class="show_speedometer">{{{settings.show_speedometer}}} </div>
-                <div class="show_step_marks">{{{settings.show_step_mark}}} </div>
+                <div class="show_step_marks">{{{settings.show_step_marks}}} </div>
                 <div class="speedosize">
                     <div class="size">{{{settings.speedosize.size}}}
                     </div>
