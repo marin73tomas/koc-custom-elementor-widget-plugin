@@ -140,7 +140,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -171,7 +171,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'left: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -204,7 +204,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -221,7 +221,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'min-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -238,7 +238,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'max-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -258,7 +258,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'opacity: {{SIZE}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(1)' => 'opacity: {{SIZE}};',
                 ],
             ]
         );
@@ -361,7 +361,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -392,7 +392,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'left: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -425,7 +425,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -442,7 +442,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'min-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -459,7 +459,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'max-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -479,7 +479,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'opacity: {{SIZE}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(2)' => 'opacity: {{SIZE}};',
                 ],
             ]
         );
@@ -590,7 +590,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -621,7 +621,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'left: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -654,7 +654,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -671,7 +671,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'min-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -688,7 +688,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'max-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -708,7 +708,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'opacity: {{SIZE}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(3)' => 'opacity: {{SIZE}};',
                 ],
             ]
         );
@@ -810,7 +810,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -841,7 +841,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'left: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -874,7 +874,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -891,7 +891,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'min-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -908,7 +908,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'max-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -928,7 +928,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'opacity: {{SIZE}} !important;',
+                    '{{WRAPPER}} {{CURRENT_ITEM}} img:nth-child(4)' => 'opacity: {{SIZE}};',
                 ],
             ]
         );
@@ -1091,7 +1091,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .slider-inner-container,{{WRAPPER}} .slider-inner-container > div ' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider-inner-container,{{WRAPPER}} .slider-inner-container > div ' => 'width: {{SIZE}}{{UNIT}};',
                 ],
                 'render_type' => 'template',
             ]
@@ -1122,16 +1122,12 @@ class Custom_Slider_Widget extends Widget_Base
                 'label' => __('Speedometer position (Top)', 'elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 0,
-                    'unit' => '%',
+                    'size' => 173,
+                    'unit' => 'px',
                 ],
-                'size_units' => ['%', 'px', 'em', 'rem'],
+                'size_units' => ['px', 'em', 'rem'],
                 'range' => [
                     'em' => [
-                        'min' => 1,
-                        'max' => 100,
-                    ],
-                    '%' => [
                         'min' => 1,
                         'max' => 100,
                     ],
@@ -1145,7 +1141,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .speedometer' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .speedometer' => 'top: {{SIZE}}{{UNIT}};',
                 ],
 
             ]
@@ -1194,7 +1190,7 @@ class Custom_Slider_Widget extends Widget_Base
                 'default' => 'black',
 
                 'selectors' => [
-                    '{{WRAPPER}} .text, {{WRAPPER}} .label-slider' => 'color: {{VALUE}} !important',
+                    '{{WRAPPER}} .text, {{WRAPPER}} .label-slider' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -1264,7 +1260,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .text' => 'top: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .text' => 'top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1298,7 +1294,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .text' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .text' => 'max-width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1332,19 +1328,15 @@ class Custom_Slider_Widget extends Widget_Base
                 'mobile_default' => [
                     'unit' => 'px',
                 ],
-                'size_units' => ['%', 'px'],
+                'size_units' => ['px'],
                 'range' => [
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
                     'px' => [
                         'min' => 0,
                         'max' => 5000,
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .slider' => 'height: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider' => 'height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1375,7 +1367,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .slider-track-container ' => 'width: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider-track-container ' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1390,7 +1382,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
                 'default' => 'black',
                 'selectors' => [
-                    '{{WRAPPER}} .slider' => 'color: {{VALUE}} !important',
+                    '{{WRAPPER}} .slider' => 'color: {{VALUE}}',
                 ],
             ],
 
@@ -1414,7 +1406,7 @@ class Custom_Slider_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .slider-track-container .MuiSlider-thumb' => 'width: {{SIZE}}{{UNIT}} !important;height: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .slider-track-container .MuiSlider-thumb' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1429,7 +1421,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
                 'default' => 'black',
                 'selectors' => [
-                    '{{WRAPPER}} .MuiSlider-thumb' => 'color: {{VALUE}} !important',
+                    '{{WRAPPER}} .MuiSlider-thumb' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -1444,7 +1436,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
                 'default' => 'blue',
                 'selectors' => [
-                    '{{WRAPPER}} .MuiSlider-thumb:hover' => 'color: {{VALUE}} !important',
+                    '{{WRAPPER}} .MuiSlider-thumb:hover' => 'color: {{VALUE}}',
                 ],
             ]
 
@@ -1489,7 +1481,7 @@ class Custom_Slider_Widget extends Widget_Base
                 ],
 
                 'selectors' => [
-                    '{{WRAPPER}} .label-slider' => 'bottom: {{SIZE}}{{UNIT}} !important;',
+                    '{{WRAPPER}} .label-slider' => 'bottom: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1583,10 +1575,10 @@ class Custom_Slider_Widget extends Widget_Base
                             <?php for ($i = 1; $i <= 4; $i++) { ?>
                                 <div class="<?php echo  $item["entrance_animation{$i}"]; ?> media media<?php echo $i; ?>" data-styles='{
                                  "opacity": "<?php echo $item['opacity'] ? $item['opacity'] : 1; ?>",
-                                        <?php if ($item["repeat_animation{$i}"]) { ?>
-                                 "animationIterationCount": "<?php echo $item["animation_repeat_times_{$i}"] ? $item["animation_repeat_times_{$i}"] : 'infinite'; ?> !important",
-                                        <?php } ?>
-                                "animationDuration": "<?php echo $item["animation_delay{$i}"] ?> !important"
+                                 
+                                 "animationIterationCount": "<?php echo $item["animation_repeat_times_{$i}"] ? $item["animation_repeat_times_{$i}"] : 'infinite'; ?>",
+                                       
+                                "animationDuration": "<?php echo $item["animation_delay{$i}"] ?>s"
                                 }
                                 '>
                                     <?php echo esc_url($item["media{$i}"]['url']); ?>
@@ -1644,12 +1636,12 @@ class Custom_Slider_Widget extends Widget_Base
 
                         <div class="{{{item.entrance_animation1}}} media media1" data-styles='{
                             "opacity":  "{{{item.opacity1}}}",
-                            <# if (item.repeat_animation1 == 0) { #>
-                            "animationIterationCount": "infinite !important",
+                            <# if (item.animation_repeat_times_1 == 0) { #>
+                            "animationIterationCount": "infinite",
                             <# } else { #>
-                             "animationIterationCount": "{{{item.repeat_animation1}}} !important",    
+                             "animationIterationCount": "{{{item.vs1}}}",    
                             <# } #>  
-                            "animationDuration": "{{{item.animation_delay1}}} !important"
+                            "animationDuration": "{{{item.animation_delay1}}}s"
                             }
                             '>
                             {{{item.media1.url}}}
@@ -1657,36 +1649,36 @@ class Custom_Slider_Widget extends Widget_Base
 
                         <div class="{{{item.entrance_animation2}}} media media2" data-styles='{
                             "opacity":  "{{{item.opacity2}}}",
-                            <# if (item.repeat_animation2 == 0) { #>
-                            "animationIterationCount": "infinite !important",
+                            <# if (item.animation_repeat_times_2 == 0) { #>
+                            "animationIterationCount": "infinite",
                             <# } else { #>
-                             "animationIterationCount": "{{{item.repeat_animation2}}} !important",    
+                             "animationIterationCount": "{{{item.animation_repeat_times_2}}}",    
                             <# } #>  
-                            "animationDuration": "{{{item.animation_delay2}}} !important"
+                            "animationDuration": "{{{item.animation_delay2}}}s"
                             }
                             '>
                             {{{item.media2.url}}}
                         </div>
                         <div class="{{{item.entrance_animation3}}} media media3" data-styles='{
                             "opacity":  "{{{item.opacity3}}}",
-                            <# if (item.repeat_animation3 == 0) { #>
-                            "animationIterationCount": "infinite !important",
+                            <# if (item.animation_repeat_times_3 == 0) { #>
+                            "animationIterationCount": "infinite",
                             <# } else { #>
-                             "animationIterationCount": "{{{item.repeat_animation3}}} !important",    
+                             "animationIterationCount": "{{{item.animation_repeat_times_3}}}",    
                             <# } #> 
-                            "animationDuration": "{{{item.animation_delay3}}} !important"
+                            "animationDuration": "{{{item.animation_delay3}}}s"
                             }
                             '>
                             {{{item.media3.url}}}
                         </div>
                         <div class="{{{item.entrance_animation4}}} media media4" data-styles='{
                             "opacity":  "{{{item.opacity4}}}",
-                            <# if (item.repeat_animation4 == 0) { #>
-                            "animationIterationCount": "infinite !important",
+                            <# if (item.animation_repeat_times_4 == 0) { #>
+                            "animationIterationCount": "infinite",
                             <# } else { #>
-                             "animationIterationCount": "{{{item.repeat_animation4}}} !important",    
+                             "animationIterationCount": "{{{item.animation_repeat_times_4}}}",    
                             <# } #>
-                            "animationDuration": "{{{item.animation_delay4}}} !important"
+                            "animationDuration": "{{{item.animation_delay4}}}s"
                             }
                             '>
                             {{{item.media4.url}}}

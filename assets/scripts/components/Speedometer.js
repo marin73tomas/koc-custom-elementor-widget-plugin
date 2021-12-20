@@ -18,7 +18,7 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
     needleSize,
     ringSize,
     unfilledSegmentColor,
-    initialSegmentStyle
+    initialSegmentStyle,
   } = variables;
   //console.log(variables);
   const [currentValue, setCurrentValue] = useState(lastValue || 0);
@@ -28,11 +28,13 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   useEffect(() => {
     if (sliderRef.current) {
       const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
-      console.log({showMarks})
+
       if (showMarks && marks.length >= 1) {
         marks[0].style.display = "none";
         marks[marks.length - 1].style.display = "none";
       }
+      var event = new Event("input", { bubbles: true });
+      sliderRef.current.dispatchEvent(event);
     }
     if (speedoRef.current) {
       const meter = speedoRef.current.querySelector(".speedometer");
@@ -89,9 +91,10 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
     emptyObject[`& .arc path:nth-child(odd):nth-child(n+${step * 2})`] = {
       fill: `${unfilledSegmentColor} !important`,
     };
+
     setSegmentStyles(emptyObject);
     setCurrentValue((lastVal) => {
-      window.kocCurrentValue = setValue;
+      window.kocCurrentValue = value;
       return setValue;
     });
     setCurrentStep((lastStep) => {
@@ -132,7 +135,11 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   return (
     <Box sx={segmentStyles}>
       <Items className="items" />
-      <div className="slider-inner-container" ref={speedoRef}>
+      <div
+        className="slider-inner-container"
+        ref={speedoRef}
+        style={{ display: `${show ? "block" : "none"}` }}
+      >
         <ReactSpeedometer
           fluidWidth={true}
           className="speedometer"

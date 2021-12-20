@@ -27,14 +27,13 @@ export default async function app(cont) {
       wrapper
         .querySelector(".speedoinnersize")
         ?.innerHTML.replaceAll(" ", "") || 0;
-    const show =
-      wrapper.querySelector(".show_speedometer").innerHTML == "yes"
-        ? true
-        : false;
-    const showMarks =
-      wrapper.querySelector(".show_step_marks").innerHTML == "yes"
-        ? true
-        : false;
+    const show = wrapper
+      .querySelector(".show_speedometer")
+      .innerHTML.includes("yes");
+    const showMarks = wrapper
+      .querySelector(".show_step_marks")
+      .innerHTML.includes("yes");
+
     const emptyObject = {};
     emptyObject[
       `& .arc path:nth-child(odd):nth-child(n+${
