@@ -1012,15 +1012,14 @@ class Custom_Slider_Widget extends Widget_Base
 
         $this->end_controls_section();
 
-        //styles tab
+
         $this->start_controls_section(
-            'styles_section',
+            'display_options',
             [
-                'label' => __('Styles', 'plugin-name'),
+                'label' => __('Display Options', 'plugin-name'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
-
 
         $this->add_control(
             'show_speedometer',
@@ -1037,39 +1036,32 @@ class Custom_Slider_Widget extends Widget_Base
                 'render_type' => 'template',
             ]
         );
-
-
-
-        $this->add_responsive_control(
-            'sectionminheight',
+        $this->add_control(
+            'show_step_marks',
             [
-                'label' => __('Section Min Height', 'elementor'),
-                'type' => Controls_Manager::SLIDER,
-                'default' => [
-                    'size' => 100,
-                    'unit' => 'vh',
-                ],
-                'size_units' => ['vh', '%', 'px', 'em', 'rem'],
-                'range' => [
-                    'vh' => [
-                        'min' => 1,
-                        'max' => 100,
-                    ],
-                    '%' => [
-                        'min' => 1,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => 1,
-                        'max' => 3000,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .slider-container' => 'min-height: {{SIZE}}{{UNIT}};',
-                ],
+                'label' => __('Show Slider Step Marks', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'your-plugin'),
+                'label_off' => __(
+                    'No',
+                    'your-plugin'
+                ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+                'render_type' => 'template',
             ]
         );
 
+        $this->end_controls_section();
+
+
+        $this->start_controls_section(
+            'speedometer_config',
+            [
+                'label' => __('Speedometer Settings', 'plugin-name'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
         $this->add_responsive_control(
             'speedosize',
             [
@@ -1178,6 +1170,69 @@ class Custom_Slider_Widget extends Widget_Base
 
             ]
         );
+
+        $this->add_control(
+            'unfilled_segment_color',
+            [
+                'label' => __('Unfilled Segment Color', 'plugin-domain'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'scheme' => [
+                    'type' => \Elementor\Scheme_Color::get_type(),
+                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                ],
+                'default' => 'black',
+            ]
+        );
+        $this->end_controls_section();
+
+
+
+        $this->start_controls_section(
+            'section_config',
+            [
+                'label' => __('Section Settings', 'plugin-name'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+        $this->add_responsive_control(
+            'sectionminheight',
+            [
+                'label' => __('Section Min Height', 'elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 100,
+                    'unit' => 'vh',
+                ],
+                'size_units' => ['vh', '%', 'px', 'em', 'rem'],
+                'range' => [
+                    'vh' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 3000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .slider-container' => 'min-height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'text_config',
+            [
+                'label' => __('Text Settings', 'plugin-name'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
         $this->add_control(
             'text_color',
             [
@@ -1299,16 +1354,12 @@ class Custom_Slider_Widget extends Widget_Base
             ]
         );
 
-        $this->add_control(
-            'unfilled_segment_color',
+        $this->end_controls_section();
+        $this->start_controls_section(
+            'slider_section',
             [
-                'label' => __('Unfilled Segment Color', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => \Elementor\Scheme_Color::get_type(),
-                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                ],
-                'default' => 'black',
+                'label' => __('Slider Settings', 'plugin-name'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
 
@@ -1516,22 +1567,6 @@ class Custom_Slider_Widget extends Widget_Base
                         'max' => 1,
                     ],
                 ],
-            ]
-        );
-
-        $this->add_control(
-            'show_step_marks',
-            [
-                'label' => __('Show Slider Step Marks', 'plugin-domain'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'your-plugin'),
-                'label_off' => __(
-                    'No',
-                    'your-plugin'
-                ),
-                'return_value' => 'yes',
-                'default' => 'yes',
-                'render_type' => 'template',
             ]
         );
 

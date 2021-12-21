@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   const sliderRef = useRef(null);
@@ -23,9 +24,34 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   //console.log(variables);
   const [currentValue, setCurrentValue] = useState(lastValue || 0);
   const [currentStep, setCurrentStep] = useState(lastStep || 0);
+  const [changingDimension, setChangingDimension] = useState(false);
   const [segmentStyles, setSegmentStyles] = useState(initialSegmentStyle);
+  const [loading, setLoading] = useState(true);
+
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+
+    width: window.innerWidth,
+  });
+
+  const debounce = (fn, ms) => {
+    let timer;
+
+    return (_) => {
+      clearTimeout(timer);
+      setLoading(true);
+      setChangingDimension((prev) => true);
+      timer = setTimeout((_) => {
+        timer = null;
+        setChangingDimension((prev) => false);
+
+        fn.apply(this);
+      }, ms);
+    };
+  };
 
   useEffect(() => {
+    setLoading((prev) => false);
     if (sliderRef.current) {
       const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
 
@@ -44,6 +70,32 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions((prev) => {
+        setLoading(false);
+        return {
+          height: window.innerHeight,
+
+          width: window.innerWidth,
+        };
+      });
+    }, 1000);
+
+    if (speedoRef.current) {
+      const meter = speedoRef.current.querySelector(".speedometer");
+      if (meter.hasAttribute("height")) {
+        meter.style.height = "inherit";
+        meter.removeAttribute("height");
+      }
+    }
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return (_) => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
 
   const maxValue = 180;
   const length = items ? items.length : 0;
@@ -132,7 +184,11 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
       </Box>
     ));
 
-  return (
+  return loading ? (
+    <div className="koc-spinner">
+      <PuffLoader />
+    </div>
+  ) : (
     <Box sx={segmentStyles}>
       <Items className="items" />
       <div
@@ -140,19 +196,22 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
         ref={speedoRef}
         style={{ display: `${show ? "block" : "none"}` }}
       >
-        <ReactSpeedometer
-          fluidWidth={true}
-          className="speedometer"
-          value={currentValue}
-          customSegmentStops={stops}
-          segmentColors={colors}
-          minValue={0}
-          needleHeightRatio={needleSize}
-          ringWidth={Number(ringSize)}
-          maxValue={maxValue}
-          labelFontSize={0}
-          valueTextFontSize={0}
-        />
+        {!changingDimension && (
+          <ReactSpeedometer
+            fluidWidth={true}
+            className="speedometer"
+            value={currentValue}
+            customSegmentStops={stops}
+            segmentColors={colors}
+            minValue={0}
+            needleHeightRatio={needleSize}
+            ringWidth={Number(ringSize)}
+            maxValue={maxValue}
+            labelFontSize={0}
+            valueTextFontSize={0}
+            needleTransitionDuration={100}
+          />
+        )}
       </div>
       <Box className="slider-track-container">
         <p className="label-slider label-right">{rightLabel}</p>
