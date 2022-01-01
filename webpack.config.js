@@ -2,10 +2,10 @@ const path = require("path");
 
 module.exports = {
   // 1
-  entry: path.resolve(__dirname, "./assets/scripts/class-widget.js"),
+  entry: path.resolve(__dirname, "./src/main.js"),
   // 2
   output: {
-    path: path.resolve(__dirname, "./assets/scripts"),
+    path: path.resolve(__dirname, "./build/"),
     filename: "bundle.min.js",
   },
   // 3

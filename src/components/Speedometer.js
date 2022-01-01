@@ -3,6 +3,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import PuffLoader from "react-spinners/PuffLoader";
+import Items from "./Items";
 
 const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   const sliderRef = useRef(null);
@@ -21,7 +22,7 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
     unfilledSegmentColor,
     initialSegmentStyle,
   } = variables;
-  //console.log(variables);
+
   const [currentValue, setCurrentValue] = useState(lastValue || 0);
   const [currentStep, setCurrentStep] = useState(lastStep || 0);
   const [changingDimension, setChangingDimension] = useState(false);
@@ -54,7 +55,7 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
     setLoading((prev) => false);
     if (sliderRef.current) {
       const marks = sliderRef.current.querySelectorAll(".MuiSlider-mark");
-
+      // remove the first and last slider step marks
       if (showMarks && marks.length >= 1) {
         marks[0].style.display = "none";
         marks[marks.length - 1].style.display = "none";
@@ -63,6 +64,7 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
       sliderRef.current.dispatchEvent(event);
     }
     if (speedoRef.current) {
+      //fix bug on chrome by removing the attribute height=0 that hides the speedometer component
       const meter = speedoRef.current.querySelector(".speedometer");
       if (meter) {
         meter.style.height = "inherit";
@@ -72,6 +74,7 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   }, []);
 
   useEffect(() => {
+    //re-render the speedometer componente on window resize every 1 second (so the size updates)
     const debouncedHandleResize = debounce(function handleResize() {
       setDimensions((prev) => {
         setLoading(false);
@@ -101,6 +104,7 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
   const length = items ? items.length : 0;
   const step = (180 - gapSize * (length - 1)) / length;
 
+  //render custom props for the speedometer component
   const customProps = useMemo(() => {
     let stepCounter = 1;
     let gapCounter = 1;
@@ -139,12 +143,17 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
     const step = parseInt((value * length) / maxValue);
 
     const setValue = value == 0 || value == maxValue ? value : value - gapSize;
+
+    //empty object use for setting the styling of the segments dynamically
     const emptyObject = {};
     emptyObject[`& .arc path:nth-child(odd):nth-child(n+${step * 2})`] = {
       fill: `${unfilledSegmentColor} !important`,
     };
 
     setSegmentStyles(emptyObject);
+
+    /* set the current values of the slider to the global window object so on each 
+    elementor rendering, the widget can go back to it's last state */
     setCurrentValue((lastVal) => {
       window.kocCurrentValue = value;
       return setValue;
@@ -155,42 +164,13 @@ const Speedometer = ({ items, variables, lastStep, lastValue }) => {
     });
   };
 
-  const Items = () =>
-    items.map((item, idx) => (
-      <Box
-        style={{
-          display: `${currentStep == idx + 1 ? "block" : "none"}`,
-        }}
-        className={`${item.className}`}
-      >
-        <div className="text" style={{ textAlign: textAlign }}>
-          <p>{item.text}</p>
-        </div>
-        <div className="medias">
-          {item.medias
-            .filter(
-              (media) =>
-                !media.src.includes("/elementor/assets/images/placeholder.png")
-            )
-            .map((media) => (
-              <img
-                className={media.className}
-                src={media.src}
-                alt=""
-                style={media.style}
-              />
-            ))}
-        </div>
-      </Box>
-    ));
-
   return loading ? (
     <div className="koc-spinner">
       <PuffLoader />
     </div>
   ) : (
     <Box sx={segmentStyles}>
-      <Items className="items" />
+      <Items items={items} currentStep={currentStep} textAlign={textAlign} className="items" />
       <div
         className="slider-inner-container"
         ref={speedoRef}

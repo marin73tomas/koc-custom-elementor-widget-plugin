@@ -23,7 +23,7 @@ if (!class_exists('KOC_Widget_Builder')) {
                // We check if the Elementor plugin has been installed / activated.
                if (defined('ELEMENTOR_PATH') && class_exists('Elementor\Widget_Base')) {
 
-                    require_once('widget.php');
+                    require_once('class-widget.php');
                     \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \Elementor\Custom_Slider_Widget());
                } else {
                     add_action('admin_notices', array($this, 'widget_error_notice'));
